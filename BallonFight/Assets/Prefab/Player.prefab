@@ -64,11 +64,11 @@ Rigidbody2D:
   m_LinearDrag: 0.5
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3ba303a3a0231cb458627726c3b88a47, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!58 &6813687492542513093
 CircleCollider2D:
   m_ObjectHideFlags: 0
