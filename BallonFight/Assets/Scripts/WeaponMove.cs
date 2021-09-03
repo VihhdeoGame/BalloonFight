@@ -6,6 +6,7 @@ public class WeaponMove : MonoBehaviour
 {
     public float distance;
     float rAngle = 0;
+    [SerializeField][Range(0,1000)]float rotationSpeed;
     [SerializeField]Transform sword;
     [SerializeField]Transform shield;
     [SerializeField]Transform player;
@@ -14,14 +15,19 @@ public class WeaponMove : MonoBehaviour
     void Start() 
     {
         Rotate();
-        
     }
-    void Update()
+    void LateUpdate()
     {
         if(Input.GetKey(KeyCode.Q))
-            Rotate(false);
+        {
+            rAngle -= rotationSpeed*Time.deltaTime ;
+            Rotate();
+        }
         if(Input.GetKey(KeyCode.E))
-            Rotate(true);
+        {
+            rAngle += rotationSpeed*Time.deltaTime ;
+            Rotate();
+        }
     }
     void Rotate()
     {
@@ -41,17 +47,5 @@ public class WeaponMove : MonoBehaviour
         float shieldA = -Mathf.Atan2(swordVector.x, swordVector.y) * Mathf.Rad2Deg;
         shield.transform.rotation = Quaternion.Euler(0,0,shieldA);
         
-    }
-    void Rotate(bool dirRight)
-    {
-        if(!dirRight)
-        {
-            rAngle--;
-        }
-        if(dirRight)
-        {
-            rAngle++;
-        }
-        Rotate();
     }
 }

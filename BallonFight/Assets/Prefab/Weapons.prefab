@@ -270,6 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 2
+  rotationSpeed: 87
   sword: {fileID: 8468063480244299361}
   shield: {fileID: 388758125345427966}
   player: {fileID: 0}
