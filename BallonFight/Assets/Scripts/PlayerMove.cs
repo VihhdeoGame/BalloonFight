@@ -17,11 +17,9 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        
-    //    Move(Input.GetAxisRaw("Horizontal")*force*Time.fixedDeltaTime,Input.GetAxisRaw("Vertical")*force*Time.fixedDeltaTime);        
+        Move(Input.GetAxisRaw("Horizontal")*force*Time.fixedDeltaTime,Input.GetAxisRaw("Vertical")*force*Time.fixedDeltaTime);        
         Move(joystick.Horizontal*force*Time.fixedDeltaTime,joystick.Vertical*force*Time.fixedDeltaTime);        
     }
-
     void Move(float horizontal, float vertical)
     {
         Vector2 move = new Vector2();
