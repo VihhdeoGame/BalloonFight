@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MusicController : MonoBehaviour
 {
-    [SerializeField][Range(0,100)]float volume;
+    [Range(0,100)]public float volume;
     [SerializeField]AudioClip[] musics;
     AudioSource musicPlayer;
     void Awake() 
