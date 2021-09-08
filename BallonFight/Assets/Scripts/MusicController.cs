@@ -19,7 +19,11 @@ public class MusicController : MonoBehaviour
         {
             ChangeVolume();
             if(Input.GetKeyDown(KeyCode.Z))
+                ChangeMusic(0);
+            if(Input.GetKeyDown(KeyCode.X))
                 ChangeMusic(1);
+            if(Input.GetKeyDown(KeyCode.C))
+                ChangeMusic(2);
         }
     #endif
     public void ChangeVolume()
