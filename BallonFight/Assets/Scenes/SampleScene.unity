@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 245717581}
   - component: {fileID: 245717580}
   - component: {fileID: 245717579}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Colliders (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,11 +321,6 @@ PrefabInstance:
       propertyPath: playerNumber
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 7963149711573303849, guid: e3756e8e4e251464eb4bd7172d588b47,
-        type: 3}
-      propertyPath: force
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3756e8e4e251464eb4bd7172d588b47, type: 3}
 --- !u!4 &331029845 stripped
@@ -366,7 +361,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &519420030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,7 +444,7 @@ GameObject:
   - component: {fileID: 537259246}
   - component: {fileID: 537259244}
   - component: {fileID: 537259245}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1067,7 +1062,7 @@ GameObject:
   - component: {fileID: 1454987673}
   - component: {fileID: 1454987672}
   - component: {fileID: 1454987671}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Colliders (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1180,7 +1175,7 @@ GameObject:
   - component: {fileID: 2072936636}
   - component: {fileID: 2072936635}
   - component: {fileID: 2072936634}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Colliders (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1353,11 +1348,6 @@ PrefabInstance:
         type: 3}
       propertyPath: playerNumber
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7963149711573303849, guid: e3756e8e4e251464eb4bd7172d588b47,
-        type: 3}
-      propertyPath: force
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3756e8e4e251464eb4bd7172d588b47, type: 3}
