@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    public int playerNumber;
     Rigidbody2D body;
     [SerializeField][Range(75,300)]float force;
     Joystick joystick;
@@ -17,8 +18,9 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Move(Input.GetAxisRaw("Horizontal")*force*Time.fixedDeltaTime,Input.GetAxisRaw("Vertical")*force*Time.fixedDeltaTime);        
-        Move(joystick.Horizontal*force*Time.fixedDeltaTime,joystick.Vertical*force*Time.fixedDeltaTime);        
+        Move(Input.GetAxisRaw("Horizontal"+playerNumber)*force*Time.fixedDeltaTime,Input.GetAxisRaw("Vertical"+playerNumber)*force*Time.fixedDeltaTime);        
+        if(playerNumber == 1)
+            Move(joystick.Horizontal*force*Time.fixedDeltaTime,joystick.Vertical*force*Time.fixedDeltaTime);        
     }
     void Move(float horizontal, float vertical)
     {
