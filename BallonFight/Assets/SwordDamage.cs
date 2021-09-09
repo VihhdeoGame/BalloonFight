@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class SwordDamage : MonoBehaviour
 { 
-    [SerializeField]PlayerMove player;
+    public PlayerMove player;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Player")
+        if(other.CompareTag("Player"))
         {
             other.GetComponent<PlayerKill>().Damage();
             player.ResetPosition();
         }
-        Debug.Log(other.tag);
-        
+        if(other.CompareTag("Shield"))
+        {
+            StartCoroutine(player.Stun(other.GetComponent<ShieldDefense>().player));
+        }
+        if(other.CompareTag("Sword"))
+        {
+            player.GetKnockback(other.GetComponent<SwordDamage>().player);
+        }        
     }
 }
