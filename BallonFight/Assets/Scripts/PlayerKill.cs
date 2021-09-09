@@ -5,34 +5,26 @@ using UnityEngine;
 public class PlayerKill : MonoBehaviour
 {
     MusicController musicController;
-    Vector3 spawnPoint;
     GameObject deathScreen;
-    Rigidbody2D body;
+    PlayerMove player;
     int lives = 3;
     // Update is called once per frame
     void Awake() 
     {
-        body = GetComponent<Rigidbody2D>();
+        player = GetComponent<PlayerMove>();
         deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
         musicController = FindObjectOfType<MusicController>();
-        spawnPoint = transform.position;
     }
-    void Update()
+    public void Damage()
     {
-        if(Input.GetKeyDown(KeyCode.K))
+        lives--;
+        if(lives <= 0)
+            Kill();
+        else
         {
-            lives--;
-            if(lives <= 0)
-                Kill();
-            else
-            {
-                transform.position = spawnPoint;
-                body.velocity = Vector2.zero;
-                body.angularVelocity = 0;
-            }
-        }    
+            player.ResetPosition();
+        }
     }
-
     void Kill()
     {
         musicController.volume = 0;
