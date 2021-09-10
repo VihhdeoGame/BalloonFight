@@ -46,6 +46,5 @@ public class WeaponMove : MonoBehaviour
         Vector3 shieldVector = player.transform.position - shield.transform.position;
         float shieldA = -Mathf.Atan2(swordVector.x, swordVector.y) * Mathf.Rad2Deg;
         shield.transform.rotation = Quaternion.Euler(0,0,shieldA);
-        
     }
 }
