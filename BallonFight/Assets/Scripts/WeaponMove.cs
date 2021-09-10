@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponMove : MonoBehaviour
 {
     public float distance;
+    int direction = 0;
     float rAngle = 0;
     [SerializeField][Range(0,1000)]float rotationSpeed;
     [SerializeField]Transform sword;
@@ -18,16 +19,8 @@ public class WeaponMove : MonoBehaviour
     }
     void LateUpdate()
     {
-        if(Input.GetKey(KeyCode.Q))
-        {
-            rAngle -= rotationSpeed*Time.deltaTime ;
-            Rotate();
-        }
-        if(Input.GetKey(KeyCode.E))
-        {
-            rAngle += rotationSpeed*Time.deltaTime ;
-            Rotate();
-        }
+        ChangeDirection(direction);
+        Rotate();
     }
     void Rotate()
     {
@@ -46,5 +39,21 @@ public class WeaponMove : MonoBehaviour
         Vector3 shieldVector = player.transform.position - shield.transform.position;
         float shieldA = -Mathf.Atan2(swordVector.x, swordVector.y) * Mathf.Rad2Deg;
         shield.transform.rotation = Quaternion.Euler(0,0,shieldA);
+    }
+    public void ChangeDirection(int direction)
+    {
+        this.direction = direction;
+        if(direction == 1)
+        {
+            rAngle += rotationSpeed*Time.deltaTime ;
+        }
+        if(direction == 2)
+        {
+            rAngle -= rotationSpeed*Time.deltaTime ;
+        }
+        if(direction == 0)
+        {
+
+        }
     }
 }
