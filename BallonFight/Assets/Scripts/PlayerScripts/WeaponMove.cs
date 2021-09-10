@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class WeaponMove : MonoBehaviour
 {
+    [SerializeField] PlayerSettingsScriptableObjects playerSettings;
     public float distance;
     int direction = 0;
     float rAngle = 0;
-    [SerializeField][Range(0,1000)]float rotationSpeed;
     [SerializeField]Transform sword;
     [SerializeField]Transform shield;
     [SerializeField]Transform player;
@@ -45,11 +45,11 @@ public class WeaponMove : MonoBehaviour
         this.direction = direction;
         if(direction == 1)
         {
-            rAngle += rotationSpeed*Time.deltaTime ;
+            rAngle += playerSettings.rotationSpeed*Time.deltaTime ;
         }
         if(direction == 2)
         {
-            rAngle -= rotationSpeed*Time.deltaTime ;
+            rAngle -= playerSettings.rotationSpeed*Time.deltaTime ;
         }
         if(direction == 0)
         {

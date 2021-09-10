@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    [SerializeField] PlayerSettingsScriptableObjects playerSettings;
     Vector3 spawnPoint;
     bool stuned;
     public int playerNumber;
     public Rigidbody2D body;
-    [SerializeField][Range(75,300)]float force;
     Joystick joystick;
     // Start is called before the first frame update
     void Awake()
@@ -23,9 +23,11 @@ public class PlayerMove : MonoBehaviour
     {
         if(!stuned)
         {
-            Move(Input.GetAxisRaw("Horizontal"+playerNumber)*force*Time.fixedDeltaTime,Input.GetAxisRaw("Vertical"+playerNumber)*force*Time.fixedDeltaTime);        
+            Move(Input.GetAxisRaw("Horizontal"+playerNumber)*playerSettings.playerAcceleration*Time.fixedDeltaTime,
+                 Input.GetAxisRaw("Vertical"+playerNumber)*playerSettings.playerAcceleration*Time.fixedDeltaTime);        
             if(playerNumber == 1)
-                Move(joystick.Horizontal*force*Time.fixedDeltaTime,joystick.Vertical*force*Time.fixedDeltaTime);        
+                Move(joystick.Horizontal*playerSettings.playerAcceleration*Time.fixedDeltaTime,
+                     joystick.Vertical*playerSettings.playerAcceleration*Time.fixedDeltaTime);        
         }
     }
     void Move(float horizontal, float vertical)

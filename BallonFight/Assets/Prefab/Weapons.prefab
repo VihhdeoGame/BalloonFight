@@ -385,8 +385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ede3a11e1ac26441bad37f6c032569b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSettings: {fileID: 11400000, guid: 5cdd08f68c84e2048ba32115de8a0a18, type: 2}
   distance: 2
-  rotationSpeed: 87
   sword: {fileID: 8468063480244299361}
   shield: {fileID: 388758125345427966}
   player: {fileID: 0}
