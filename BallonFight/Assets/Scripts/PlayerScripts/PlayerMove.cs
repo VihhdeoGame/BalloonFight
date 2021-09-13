@@ -10,12 +10,17 @@ public class PlayerMove : MonoBehaviour
     public int playerNumber;
     public Rigidbody2D body;
     Joystick joystick;
+    string horizontalAxis;
+    string verticalAxis;
     // Start is called before the first frame update
     void Awake()
     {
+        horizontalAxis = string.Concat("Horizontal",playerNumber);
+        verticalAxis = string.Concat("Vertical",playerNumber);
         body = GetComponent<Rigidbody2D>();
         joystick = FindObjectOfType<Joystick>();
         spawnPoint = transform.position;
+        
     }
 
     // Update is called once per frame
@@ -23,8 +28,8 @@ public class PlayerMove : MonoBehaviour
     {
         if(!stuned)
         {
-            Move(Input.GetAxisRaw("Horizontal"+playerNumber)*playerSettings.playerAcceleration*Time.fixedDeltaTime,
-                 Input.GetAxisRaw("Vertical"+playerNumber)*playerSettings.playerAcceleration*Time.fixedDeltaTime);        
+            Move(Input.GetAxisRaw(horizontalAxis)*playerSettings.playerAcceleration*Time.fixedDeltaTime,
+                 Input.GetAxisRaw(verticalAxis)*playerSettings.playerAcceleration*Time.fixedDeltaTime);        
             if(playerNumber == 1)
                 Move(joystick.Horizontal*playerSettings.playerAcceleration*Time.fixedDeltaTime,
                      joystick.Vertical*playerSettings.playerAcceleration*Time.fixedDeltaTime);        

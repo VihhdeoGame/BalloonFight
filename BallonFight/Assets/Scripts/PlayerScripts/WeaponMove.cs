@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponMove : MonoBehaviour
 {
     [SerializeField] PlayerSettingsScriptableObjects playerSettings;
-    public float distance;
+    
     int direction = 0;
     float rAngle = 0;
     [SerializeField]Transform sword;
@@ -24,12 +24,12 @@ public class WeaponMove : MonoBehaviour
     }
     void Rotate()
     {
-        float swordX = Mathf.Sin(rAngle*Mathf.Deg2Rad)*distance;
-        float swordY = Mathf.Cos(rAngle*Mathf.Deg2Rad)*distance; 
+        float swordX = Mathf.Sin(rAngle*Mathf.Deg2Rad)*playerSettings.weaponDistance;
+        float swordY = Mathf.Cos(rAngle*Mathf.Deg2Rad)*playerSettings.weaponDistance; 
         sword.transform.localPosition = new Vector3(swordX,swordY,0);
         
-        float shieldX = -Mathf.Sin((rAngle)*Mathf.Deg2Rad)*distance;
-        float shieldY = -Mathf.Cos((rAngle)*Mathf.Deg2Rad)*distance; 
+        float shieldX = -Mathf.Sin((rAngle)*Mathf.Deg2Rad)*playerSettings.weaponDistance;
+        float shieldY = -Mathf.Cos((rAngle)*Mathf.Deg2Rad)*playerSettings.weaponDistance; 
         shield.transform.localPosition = new Vector3(shieldX,shieldY,0);
         
         Vector3 swordVector = player.transform.position - sword.transform.position;

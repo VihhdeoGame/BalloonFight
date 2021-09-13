@@ -9,4 +9,6 @@ public class PlayerSettingsScriptableObjects : ScriptableObject
     
     [Range(0,500)]public float rotationSpeed;
 
+    [Range(0,500)]public float weaponDistance;
+
 }
