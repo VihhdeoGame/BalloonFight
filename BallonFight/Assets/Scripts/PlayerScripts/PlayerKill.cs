@@ -7,7 +7,8 @@ public class PlayerKill : MonoBehaviour
     MusicController musicController;
     GameObject deathScreen;
     PlayerMove player;
-    int lives = 3;
+    [SerializeField]PlayerLifeDisplay display;
+    public int lives = 3;
     // Update is called once per frame
     void Awake() 
     {
@@ -18,6 +19,7 @@ public class PlayerKill : MonoBehaviour
     public void Damage()
     {
         lives--;
+        display.UpdateHearts(lives);
         if(lives <= 0)
             Kill();
         else
