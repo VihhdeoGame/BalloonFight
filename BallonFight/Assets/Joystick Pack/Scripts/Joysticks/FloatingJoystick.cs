@@ -7,8 +7,8 @@ public class FloatingJoystick : Joystick
 {
     protected override void Start()
     {
-        base.Start();
         background.gameObject.SetActive(false);
+        base.Start();
     }
 
     public override void OnPointerDown(PointerEventData eventData)
