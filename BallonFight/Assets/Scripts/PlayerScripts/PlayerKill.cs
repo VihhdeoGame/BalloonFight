@@ -21,7 +21,7 @@ public class PlayerKill : MonoBehaviour
     public void Damage()
     {
         currentLives--;
-        display.UpdateHearts(currentLives);
+        //display.UpdateHearts(currentLives);
         if(currentLives <= 0)
             Kill();
         else

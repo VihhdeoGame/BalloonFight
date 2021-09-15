@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -10,29 +11,27 @@ public class PlayerMove : MonoBehaviour
     public int playerNumber;
     public Rigidbody2D body;
     Joystick joystick;
-    string horizontalAxis;
-    string verticalAxis;
+    PhotonView view;
     // Start is called before the first frame update
     void Awake()
     {
-        horizontalAxis = string.Concat("Horizontal",playerNumber);
-        verticalAxis = string.Concat("Vertical",playerNumber);
+        view = GetComponent<PhotonView>();
         body = GetComponent<Rigidbody2D>();
         joystick = FindObjectOfType<Joystick>();
         spawnPoint = transform.position;
-        
+        playerNumber = GameObject.FindGameObjectsWithTag("Player").Length;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(!stuned)
+        if(view.IsMine && !stuned)
         {
-            Move(Input.GetAxisRaw(horizontalAxis)*playerSettings.playerAcceleration*Time.fixedDeltaTime,
-                 Input.GetAxisRaw(verticalAxis)*playerSettings.playerAcceleration*Time.fixedDeltaTime);        
-            if(playerNumber == 1)
-                Move(joystick.Horizontal*playerSettings.playerAcceleration*Time.fixedDeltaTime,
-                     joystick.Vertical*playerSettings.playerAcceleration*Time.fixedDeltaTime);        
+            Move(Input.GetAxisRaw("Horizontal")*playerSettings.playerAcceleration*Time.fixedDeltaTime,
+                 Input.GetAxisRaw("Vertical")*playerSettings.playerAcceleration*Time.fixedDeltaTime);        
+            
+            Move(joystick.Horizontal*playerSettings.playerAcceleration*Time.fixedDeltaTime,
+                 joystick.Vertical*playerSettings.playerAcceleration*Time.fixedDeltaTime);        
         }
     }
     void Move(float horizontal, float vertical)
