@@ -4,23 +4,20 @@ using UnityEngine;
 
 public class PlayerLifeDisplay : MonoBehaviour
 {
-    [SerializeField]GameObject life;
+    [SerializeField]GameObject lifePrefab;
     List<GameObject> lifeArray;
     [SerializeField]PlayerKill player;
-    RectTransform rectTransform;
     int currentLives;
     private void Start() 
     {
         lifeArray = new List<GameObject>();
-        rectTransform = GetComponent<RectTransform>();
-        DisplayHearts(player.lives);
+        DisplayHearts(player.currentLives);
     }
     void DisplayHearts(int maxLives)
     {
-        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x,100*maxLives);
         for (int i = 0; i < maxLives; i++)
         {
-            lifeArray.Add(Instantiate(life,transform));
+            lifeArray.Add(Instantiate(lifePrefab,transform));
         }
         currentLives = maxLives;
     }
@@ -32,6 +29,5 @@ public class PlayerLifeDisplay : MonoBehaviour
             lifeArray.RemoveAt(currentLives-1);
             currentLives = lives;
         }
-        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x,100*lives);
     }
 }

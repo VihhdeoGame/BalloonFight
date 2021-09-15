@@ -1749,12 +1749,12 @@ PrefabInstance:
     - target: {fileID: 5332462936430632373, guid: 71ee0a235cc9606408f38fba136e4a80,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 240
       objectReference: {fileID: 0}
     - target: {fileID: 5332462936430632373, guid: 71ee0a235cc9606408f38fba136e4a80,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 520
       objectReference: {fileID: 0}
     - target: {fileID: 5332462936430632373, guid: 71ee0a235cc9606408f38fba136e4a80,
         type: 3}
@@ -1764,7 +1764,7 @@ PrefabInstance:
     - target: {fileID: 5332462936430632373, guid: 71ee0a235cc9606408f38fba136e4a80,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0.99
       objectReference: {fileID: 0}
     - target: {fileID: 5332462936430632373, guid: 71ee0a235cc9606408f38fba136e4a80,
         type: 3}
@@ -1774,7 +1774,7 @@ PrefabInstance:
     - target: {fileID: 5332462936430632373, guid: 71ee0a235cc9606408f38fba136e4a80,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0.99
       objectReference: {fileID: 0}
     - target: {fileID: 5332462936430632373, guid: 71ee0a235cc9606408f38fba136e4a80,
         type: 3}
@@ -1785,6 +1785,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7383735543964120440, guid: 71ee0a235cc9606408f38fba136e4a80,
+        type: 3}
+      propertyPath: m_ChildScaleWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7383735543964120440, guid: 71ee0a235cc9606408f38fba136e4a80,
+        type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7383735543964120440, guid: 71ee0a235cc9606408f38fba136e4a80,
+        type: 3}
+      propertyPath: m_ChildControlHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7383735543964120440, guid: 71ee0a235cc9606408f38fba136e4a80,
+        type: 3}
+      propertyPath: m_ChildScaleHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7383735543964120440, guid: 71ee0a235cc9606408f38fba136e4a80,
+        type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7383735543964120440, guid: 71ee0a235cc9606408f38fba136e4a80,
+        type: 3}
+      propertyPath: m_ChildForceExpandHeight
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71ee0a235cc9606408f38fba136e4a80, type: 3}
