@@ -7,18 +7,22 @@ public class PlayerKill : MonoBehaviour
     MusicController musicController;
     GameObject deathScreen;
     PlayerMove player;
-    int lives = 3;
+    [SerializeField]PlayerLifeDisplay display;
+    [SerializeField] PlayerSettingsScriptableObjects playerSettings;
+    public int currentLives;
     // Update is called once per frame
     void Awake() 
     {
+        currentLives = playerSettings.playerMaxLives;
         player = GetComponent<PlayerMove>();
         deathScreen = GameObject.FindGameObjectWithTag("DeathScreen");
         musicController = FindObjectOfType<MusicController>();
     }
     public void Damage()
     {
-        lives--;
-        if(lives <= 0)
+        currentLives--;
+        display.UpdateHearts(currentLives);
+        if(currentLives <= 0)
             Kill();
         else
         {
