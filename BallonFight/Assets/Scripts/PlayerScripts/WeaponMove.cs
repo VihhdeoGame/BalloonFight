@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class WeaponMove : MonoBehaviour
+using Photon.Pun;
+public class WeaponMove : MonoBehaviourPunCallbacks
 {
-    [SerializeField] PlayerSettingsScriptableObjects playerSettings;
-    
     int direction = 0;
     float rAngle = 0;
+    [SerializeField]PhotonView view;
     [SerializeField]Transform sword;
     [SerializeField]Transform shield;
     [SerializeField]Transform player;
@@ -19,17 +18,27 @@ public class WeaponMove : MonoBehaviour
     }
     void LateUpdate()
     {
-        ChangeDirection(direction);
         Rotate();
+        /*if(view.IsMine)
+        {
+            if(Input.GetKey(KeyCode.Q))
+            {
+                ChangeDirection(2);
+            }
+            if(Input.GetKey(KeyCode.E))
+            {
+                ChangeDirection(1);
+            }
+        }*/
     }
     void Rotate()
     {
-        float swordX = Mathf.Sin(rAngle*Mathf.Deg2Rad)*playerSettings.weaponDistance;
-        float swordY = Mathf.Cos(rAngle*Mathf.Deg2Rad)*playerSettings.weaponDistance; 
+        float swordX = Mathf.Sin(rAngle*Mathf.Deg2Rad)*GameManager.Instance.playerManager.weaponDistance;
+        float swordY = Mathf.Cos(rAngle*Mathf.Deg2Rad)*GameManager.Instance.playerManager.weaponDistance; 
         sword.transform.localPosition = new Vector3(swordX,swordY,0);
         
-        float shieldX = -Mathf.Sin((rAngle)*Mathf.Deg2Rad)*playerSettings.weaponDistance;
-        float shieldY = -Mathf.Cos((rAngle)*Mathf.Deg2Rad)*playerSettings.weaponDistance; 
+        float shieldX = -Mathf.Sin((rAngle)*Mathf.Deg2Rad)*GameManager.Instance.playerManager.weaponDistance;
+        float shieldY = -Mathf.Cos((rAngle)*Mathf.Deg2Rad)*GameManager.Instance.playerManager.weaponDistance; 
         shield.transform.localPosition = new Vector3(shieldX,shieldY,0);
         
         Vector3 swordVector = player.transform.position - sword.transform.position;
@@ -45,11 +54,11 @@ public class WeaponMove : MonoBehaviour
         this.direction = direction;
         if(direction == 1)
         {
-            rAngle += playerSettings.rotationSpeed*Time.deltaTime ;
+            rAngle += GameManager.Instance.playerManager.rotationSpeed*Time.deltaTime ;
         }
         if(direction == 2)
         {
-            rAngle -= playerSettings.rotationSpeed*Time.deltaTime ;
+            rAngle -= GameManager.Instance.playerManager.rotationSpeed*Time.deltaTime ;
         }
         if(direction == 0)
         {

@@ -5,7 +5,6 @@ using Photon.Pun;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] PlayerSettingsScriptableObjects playerSettings;
     Vector3 spawnPoint;
     bool stuned;
     public int playerNumber;
@@ -27,11 +26,11 @@ public class PlayerMove : MonoBehaviour
     {
         if(view.IsMine && !stuned)
         {
-            Move(Input.GetAxisRaw("Horizontal")*playerSettings.playerAcceleration*Time.fixedDeltaTime,
-                 Input.GetAxisRaw("Vertical")*playerSettings.playerAcceleration*Time.fixedDeltaTime);        
+            Move(Input.GetAxisRaw("Horizontal")*GameManager.Instance.playerManager.playerAcceleration*Time.fixedDeltaTime,
+                 Input.GetAxisRaw("Vertical")*GameManager.Instance.playerManager.playerAcceleration*Time.fixedDeltaTime);        
             
-            Move(joystick.Horizontal*playerSettings.playerAcceleration*Time.fixedDeltaTime,
-                 joystick.Vertical*playerSettings.playerAcceleration*Time.fixedDeltaTime);        
+            Move(joystick.Horizontal*GameManager.Instance.playerManager.playerAcceleration*Time.fixedDeltaTime,
+                 joystick.Vertical*GameManager.Instance.playerManager.playerAcceleration*Time.fixedDeltaTime);       
         }
     }
     void Move(float horizontal, float vertical)

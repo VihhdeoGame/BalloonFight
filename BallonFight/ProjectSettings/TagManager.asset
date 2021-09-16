@@ -10,6 +10,8 @@ TagManager:
   - Shield
   - SceneManager
   - Weapons
+  - Right Button
+  - Left Button
   layers:
   - Default
   - TransparentFX
