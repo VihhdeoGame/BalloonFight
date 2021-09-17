@@ -18,19 +18,20 @@ public class PlayerMove : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         joystick = FindObjectOfType<Joystick>();
         spawnPoint = transform.position;
-        playerNumber = GameObject.FindGameObjectsWithTag("Player").Length;
+        playerNumber = view.ControllerActorNr;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         if(view.IsMine && !stuned)
-        {
-            Move(Input.GetAxisRaw("Horizontal")*GameManager.Instance.playerManager.playerAcceleration*Time.fixedDeltaTime,
-                 Input.GetAxisRaw("Vertical")*GameManager.Instance.playerManager.playerAcceleration*Time.fixedDeltaTime);        
+        {/*
+            Move(Input.GetAxisRaw("Horizontal")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
+                 Input.GetAxisRaw("Vertical")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);        
             
-            Move(joystick.Horizontal*GameManager.Instance.playerManager.playerAcceleration*Time.fixedDeltaTime,
-                 joystick.Vertical*GameManager.Instance.playerManager.playerAcceleration*Time.fixedDeltaTime);       
+            Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
+                 joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
+        */
         }
     }
     void Move(float horizontal, float vertical)

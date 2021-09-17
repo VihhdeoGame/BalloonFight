@@ -8,9 +8,10 @@ public class PlayerKill : MonoBehaviour
     [SerializeField]PlayerLifeDisplay display;
     public int currentLives;
     void Awake() 
-    {
-        currentLives = GameManager.Instance.playerManager.playerMaxLives;
+    {/*
+        currentLives = GameManager.PlayerManager.playerMaxLives;
         player = GetComponent<PlayerMove>();
+    */
     }
     public void Damage()
     {

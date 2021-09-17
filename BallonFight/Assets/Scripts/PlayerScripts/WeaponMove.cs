@@ -32,13 +32,13 @@ public class WeaponMove : MonoBehaviourPunCallbacks
         }*/
     }
     void Rotate()
-    {
-        float swordX = Mathf.Sin(rAngle*Mathf.Deg2Rad)*GameManager.Instance.playerManager.weaponDistance;
-        float swordY = Mathf.Cos(rAngle*Mathf.Deg2Rad)*GameManager.Instance.playerManager.weaponDistance; 
+    {/*
+        float swordX = Mathf.Sin(rAngle*Mathf.Deg2Rad)*GameManager.PlayerManager.weaponDistance;
+        float swordY = Mathf.Cos(rAngle*Mathf.Deg2Rad)*GameManager.PlayerManager.weaponDistance; 
         sword.transform.localPosition = new Vector3(swordX,swordY,0);
         
-        float shieldX = -Mathf.Sin((rAngle)*Mathf.Deg2Rad)*GameManager.Instance.playerManager.weaponDistance;
-        float shieldY = -Mathf.Cos((rAngle)*Mathf.Deg2Rad)*GameManager.Instance.playerManager.weaponDistance; 
+        float shieldX = -Mathf.Sin((rAngle)*Mathf.Deg2Rad)*GameManager.PlayerManager.weaponDistance;
+        float shieldY = -Mathf.Cos((rAngle)*Mathf.Deg2Rad)*GameManager.PlayerManager.weaponDistance; 
         shield.transform.localPosition = new Vector3(shieldX,shieldY,0);
         
         Vector3 swordVector = player.transform.position - sword.transform.position;
@@ -47,22 +47,23 @@ public class WeaponMove : MonoBehaviourPunCallbacks
         
         Vector3 shieldVector = player.transform.position - shield.transform.position;
         float shieldA = -Mathf.Atan2(swordVector.x, swordVector.y) * Mathf.Rad2Deg;
-        shield.transform.rotation = Quaternion.Euler(0,0,shieldA);
+        shield.transform.rotation = Quaternion.Euler(0,0,shieldA);*/
+    
     }
     public void ChangeDirection(int direction)
-    {
+    {/*
         this.direction = direction;
         if(direction == 1)
         {
-            rAngle += GameManager.Instance.playerManager.rotationSpeed*Time.deltaTime ;
+            rAngle += GameManager.PlayerManager.rotationSpeed*Time.deltaTime ;
         }
         if(direction == 2)
         {
-            rAngle -= GameManager.Instance.playerManager.rotationSpeed*Time.deltaTime ;
+            rAngle -= GameManager.PlayerManager.rotationSpeed*Time.deltaTime ;
         }
         if(direction == 0)
         {
 
-        }
+        }*/
     }
 }

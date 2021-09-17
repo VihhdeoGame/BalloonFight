@@ -5,12 +5,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameManagerData", menuName = "ScriptableObjects/GameManager")]
 public class GameManager : SingletonScriptableObject<GameManager>
 {
+    
     [SerializeField]
-    public PlayerSettingsScriptableObjects playerManager;
+    private GameSettingsScriptableObjects gameSettings;
+    
     [SerializeField]
-    public MusicSettingsScriptableObjects musicManger;
+    private PlayerSettingsScriptableObjects playerManager;
+    
+    [SerializeField]
+    private MusicSettingsScriptableObjects musicManger;
+    
     public static PlayerSettingsScriptableObjects PlayerManager{ get { return Instance.playerManager; } }
-    public static MusicSettingsScriptableObjects MusicManager { get { return Instance.musicManger;} }
+    
+    public static MusicSettingsScriptableObjects MusicManager { get { return Instance.musicManger; } }
+    
+    public static GameSettingsScriptableObjects GameSettings { get { return Instance.gameSettings; } }
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void FirstInitialize()
     {

@@ -171,7 +171,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3700020440508739594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aadd1a6aca5c1564ebc5ebfd7df9aed9, type: 3}
+  m_Script: {fileID: 11500000, guid: a1f06a6d689c75b4ca8fe36f26cc1bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
@@ -350,10 +350,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5453784713650901322}
   - component: {fileID: 2136045952413478507}
-  - component: {fileID: 7047724083660712526}
   - component: {fileID: 6547266039413530649}
+  - component: {fileID: 8512769416522051409}
   m_Layer: 8
-  m_Name: Weapons
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -389,29 +389,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sword: {fileID: 8468063480244299361}
   shield: {fileID: 388758125345427966}
---- !u!114 &7047724083660712526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8062782045568801975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 6547266039413530649}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &6547266039413530649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,3 +422,26 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &8512769416522051409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8062782045568801975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 6547266039413530649}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
