@@ -18,17 +18,11 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("Success, Connecting to Lobby");
+        SceneManager.LoadScene("Main Menu");
         Debug.Log(string.Concat("Welcome",PhotonNetwork.LocalPlayer.NickName));
-        PhotonNetwork.JoinLobby();
     }
     public override void OnDisconnected(DisconnectCause cause)
     {
         Debug.Log(string.Concat("Disconect from server", cause.ToString()));
-    }
-    public override void OnJoinedLobby()
-    {
-        Debug.Log("Success, Entering lobby");
-        SceneManager.LoadScene("Main Menu");
     }
 }

@@ -23,9 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 83ecc49cc43bffd48a641f613d155c95
-  - enabled: 1
-    path: Assets/Scenes/GameRoom.unity
-    guid: bc30bc75f016a6c47af0f5c7f67601a7
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
