@@ -15,3 +15,5 @@ MonoBehaviour:
   gameSettings: {fileID: 11400000, guid: 0344e254283b2064fbd31028c1cf898d, type: 2}
   playerManager: {fileID: 11400000, guid: 5cdd08f68c84e2048ba32115de8a0a18, type: 2}
   musicManger: {fileID: 11400000, guid: de0d628284b53da4d886bab38346912a, type: 2}
+  networkLobbyManager: {fileID: 11400000, guid: 2a5d0578a87cd5b46a43ebfcd2223e63,
+    type: 2}

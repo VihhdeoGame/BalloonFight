@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class ConnectToLobby : MonoBehaviourPunCallbacks
 {
-    public void OnClick_ConnectToLobby()
+    public override void OnEnable()
     {
+        base.OnEnable();
         Debug.Log("Connecting to Lobby...");
         if(!PhotonNetwork.InLobby)
-            PhotonNetwork.JoinLobby();
+            PhotonNetwork.JoinLobby(GameManager.Lobby);
     }
     public override void OnJoinedLobby()
     {

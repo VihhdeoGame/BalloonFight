@@ -7,12 +7,22 @@ public class CreateOrJoinRoomCanvas : MonoBehaviour
     [SerializeField]
     private CreateRoomMenu createRoomMenu;
     [SerializeField]
-    private RoomListingsMenu roomListingsMenu;
+    private JoinRoomMenu joinRoomMenu;
     private RoomCanvases roomCanvases;
     public void FirstInitialize(RoomCanvases _canvases)
     {
         roomCanvases = _canvases;
         createRoomMenu.FirstInitialize(_canvases);
-        roomListingsMenu.FirstInitialize(_canvases);
+        joinRoomMenu.FirstInitialize(_canvases);
+    }
+    
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
     }
 }

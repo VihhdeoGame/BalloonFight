@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class LeaveRoomMenu : MonoBehaviour
+public class LeaveRoomMenu : MonoBehaviourPunCallbacks
 {
     private RoomCanvases roomCanvases;
     public void FirstInitialize(RoomCanvases _canvases)
@@ -14,5 +14,6 @@ public class LeaveRoomMenu : MonoBehaviour
     {
        PhotonNetwork.LeaveRoom(true);
        roomCanvases.CurrentRoomCanvas.Hide();
+       roomCanvases.BackgroundCanvas.Show();
     }
 }
