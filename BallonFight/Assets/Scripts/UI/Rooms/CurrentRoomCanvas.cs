@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using TMPro;
 using UnityEngine;
 
 public class CurrentRoomCanvas : MonoBehaviour
 {
+    [SerializeField]
+    private TMP_Text roomName;
     [SerializeField]
     private PlayerListingsMenu playerListingsMenu;
     [SerializeField]
@@ -19,6 +23,7 @@ public class CurrentRoomCanvas : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
+        roomName.text = PhotonNetwork.CurrentRoom.Name;
     }
 
     public void Hide()

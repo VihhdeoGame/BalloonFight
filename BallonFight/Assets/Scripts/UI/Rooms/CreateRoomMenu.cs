@@ -29,6 +29,7 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
         RoomCustomPropriety.Add(roomName, 0);
         
         PhotonNetwork.CreateRoom(roomName, _options,GameManager.Lobby);
+        roomCanvases.BackgroundCanvas.Show();
     }
 
     public override void OnCreatedRoom()
@@ -37,10 +38,12 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
         Debug.Log(string.Concat("Room Name ",PhotonNetwork.CurrentRoom.Name));
         roomCanvases.CurrentRoomCanvas.Show();
         roomCanvases.CreateOrJoinRoomCanvas.Hide();
+        roomCanvases.BackgroundCanvas.Hide();
     }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.Log(string.Concat("Room creation failed: ",message), this);
+        roomCanvases.BackgroundCanvas.Hide();
     }
     private string CreateRandomName(int length)
     {

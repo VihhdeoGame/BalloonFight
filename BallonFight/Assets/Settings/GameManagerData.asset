@@ -17,3 +17,4 @@ MonoBehaviour:
   musicManger: {fileID: 11400000, guid: de0d628284b53da4d886bab38346912a, type: 2}
   networkLobbyManager: {fileID: 11400000, guid: 2a5d0578a87cd5b46a43ebfcd2223e63,
     type: 2}
+  sceneManager: {fileID: 11400000, guid: 08566b5e7c8f12e43830ee851bcf4cd0, type: 2}
