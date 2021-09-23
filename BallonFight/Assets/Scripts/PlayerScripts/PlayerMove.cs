@@ -25,13 +25,12 @@ public class PlayerMove : MonoBehaviour
     void FixedUpdate()
     {
         if(view.IsMine && !stuned)
-        {/*
+        {
             Move(Input.GetAxisRaw("Horizontal")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
                  Input.GetAxisRaw("Vertical")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);        
             
             Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
                  joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
-        */
         }
     }
     void Move(float horizontal, float vertical)

@@ -321,6 +321,11 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4346744404375813995, guid: e3756e8e4e251464eb4bd7172d588b47,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4483767006777177041, guid: e3756e8e4e251464eb4bd7172d588b47,
         type: 3}
       propertyPath: m_Name
@@ -1360,6 +1365,11 @@ PrefabInstance:
         type: 3}
       propertyPath: sceneViewId
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4346744404375813995, guid: e3756e8e4e251464eb4bd7172d588b47,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4483767006777177041, guid: e3756e8e4e251464eb4bd7172d588b47,
         type: 3}

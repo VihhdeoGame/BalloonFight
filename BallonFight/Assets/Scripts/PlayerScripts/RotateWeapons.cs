@@ -22,7 +22,7 @@ public class RotateWeapons : MonoBehaviour
     }
 
     void SetInitialPosition()
-    {/*
+    {
         float swordX = Mathf.Sin(GameManager.PlayerManager.weaponInitialRotation*Mathf.Deg2Rad)*GameManager.PlayerManager.weaponDistance;
         float swordY = Mathf.Cos(GameManager.PlayerManager.weaponInitialRotation*Mathf.Deg2Rad)*GameManager.PlayerManager.weaponDistance; 
         sword.transform.localPosition = new Vector3(swordX,swordY,0);
@@ -30,12 +30,12 @@ public class RotateWeapons : MonoBehaviour
         float shieldX = -Mathf.Sin(GameManager.PlayerManager.weaponInitialRotation*Mathf.Deg2Rad)*GameManager.PlayerManager.weaponDistance;
         float shieldY = -Mathf.Cos(GameManager.PlayerManager.weaponInitialRotation*Mathf.Deg2Rad)*GameManager.PlayerManager.weaponDistance; 
         shield.transform.localPosition = new Vector3(shieldX,shieldY,0);
-    */}
+    }
     void Rotate(bool isRight)
-    {/*
+    {
         Vector3 rotation = new Vector3();
         if(isRight){ rotation = new Vector3(0,0,-GameManager.PlayerManager.rotationSpeed*Time.deltaTime); }
         if(!isRight){ rotation = new Vector3(0,0,GameManager.PlayerManager.rotationSpeed*Time.deltaTime); }
         transform.Rotate(rotation);
-    */}
+    }
 }
