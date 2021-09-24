@@ -22,8 +22,7 @@ public class JoinRoomMenu : MonoBehaviourPunCallbacks
             PhotonNetwork.JoinLobby(GameManager.Lobby);
 
         Hashtable RoomCustomPropriety = new Hashtable();
-        RoomCustomPropriety.Add(roomName, 0);
-        
+        RoomCustomPropriety.Add("Name", roomName.text);      
         PhotonNetwork.JoinRandomRoom(RoomCustomPropriety,0);
     }
 

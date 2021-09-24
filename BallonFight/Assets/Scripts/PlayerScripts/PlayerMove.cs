@@ -9,11 +9,13 @@ public class PlayerMove : MonoBehaviour
     bool stuned;
     public int playerNumber;
     public Rigidbody2D body;
+    Animator animator; 
     Joystick joystick;
     PhotonView view;
     // Start is called before the first frame update
     void Awake()
     {
+        animator = GetComponent<Animator>();
         view = GetComponent<PhotonView>();
         body = GetComponent<Rigidbody2D>();
         joystick = FindObjectOfType<Joystick>();
@@ -38,6 +40,12 @@ public class PlayerMove : MonoBehaviour
         Vector2 move = new Vector2();
         move.Set(horizontal,vertical);
         body.AddForce(move,ForceMode2D.Force);
+        if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0 || Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0)
+        {
+        animator.SetFloat("Horizontal",Input.GetAxisRaw("Horizontal"));
+        animator.SetFloat("Vertical", Input.GetAxisRaw("Vertical")); 
+        }
+    
     }
     public void ResetPosition()
     {

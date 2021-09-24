@@ -24,16 +24,15 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
         {
             roomName = CreateRandomName(5);
         } while(!PhotonNetwork.GetCustomRoomList(GameManager.Lobby,roomName));
-        
-        Hashtable RoomCustomPropriety = new Hashtable();
-        RoomCustomPropriety.Add(roomName, 0);
-        
         PhotonNetwork.CreateRoom(roomName, _options,GameManager.Lobby);
         roomCanvases.BackgroundCanvas.Show();
     }
 
     public override void OnCreatedRoom()
     {
+        Hashtable RoomCustomPropriety = new Hashtable();
+        RoomCustomPropriety.Add("Name", roomName);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(RoomCustomPropriety);
         Debug.Log("Created room successfully", this);
         Debug.Log(string.Concat("Room Name ",PhotonNetwork.CurrentRoom.Name));
         roomCanvases.CurrentRoomCanvas.Show();
