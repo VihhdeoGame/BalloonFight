@@ -5,5 +5,4 @@ using UnityEngine;
 public class GameManagerReference : MonoBehaviour
 {
     public GameManager gameManagerReference;
-
 }

@@ -20,10 +20,7 @@ public class JoinRoomMenu : MonoBehaviourPunCallbacks
     {
         if(!PhotonNetwork.InLobby)
             PhotonNetwork.JoinLobby(GameManager.Lobby);
-
-        Hashtable RoomCustomPropriety = new Hashtable();
-        RoomCustomPropriety.Add("Name", roomName.text);      
-        PhotonNetwork.JoinRandomRoom(RoomCustomPropriety,0);
+        PhotonNetwork.JoinRoom(roomName.text);
     }
 
     public override void OnJoinedRoom()
@@ -36,6 +33,6 @@ public class JoinRoomMenu : MonoBehaviourPunCallbacks
     }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        Debug.Log(string.Concat("Room creation failed: ",message), this);
+        Debug.Log(string.Concat("Room Join failed: ",message), this);
     }
 }

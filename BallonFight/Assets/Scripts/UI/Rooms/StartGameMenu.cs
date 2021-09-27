@@ -9,7 +9,6 @@ public class StartGameMenu : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
         isMaster();
-        
     }
     
     private void isMaster(){ gameObject.SetActive(PhotonNetwork.IsMasterClient); }

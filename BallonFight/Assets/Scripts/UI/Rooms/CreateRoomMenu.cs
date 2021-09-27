@@ -4,7 +4,6 @@ using System.Text;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class CreateRoomMenu : MonoBehaviourPunCallbacks
 {
@@ -20,19 +19,18 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
             PhotonNetwork.JoinLobby(GameManager.Lobby);
         RoomOptions _options = new RoomOptions();
         _options.MaxPlayers = 4;
+        _options.IsVisible = true;
+        _options.IsOpen = true;
         do
         {
             roomName = CreateRandomName(5);
-        } while(!PhotonNetwork.GetCustomRoomList(GameManager.Lobby,roomName));
+        } while(roomCanvases.BackgroundCanvas.cachedRoomList.ContainsKey(roomName));
         PhotonNetwork.CreateRoom(roomName, _options,GameManager.Lobby);
         roomCanvases.BackgroundCanvas.Show();
     }
 
     public override void OnCreatedRoom()
     {
-        Hashtable RoomCustomPropriety = new Hashtable();
-        RoomCustomPropriety.Add("Name", roomName);
-        PhotonNetwork.CurrentRoom.SetCustomProperties(RoomCustomPropriety);
         Debug.Log("Created room successfully", this);
         Debug.Log(string.Concat("Room Name ",PhotonNetwork.CurrentRoom.Name));
         roomCanvases.CurrentRoomCanvas.Show();

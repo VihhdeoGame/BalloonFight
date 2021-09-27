@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: NetworkLobbySettingsData
   m_EditorClassIdentifier: 
   lobbyName: MasterLobby
-  lobbyType: 2
+  lobbyType: 0

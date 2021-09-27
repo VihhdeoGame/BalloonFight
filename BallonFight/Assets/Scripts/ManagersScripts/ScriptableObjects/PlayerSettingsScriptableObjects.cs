@@ -7,7 +7,6 @@ public class PlayerSettingsScriptableObjects : ScriptableObject
 {
     [Header("Player Movement")]
     [Range(0,500)]public float playerAcceleration;
-    
     [Range(0,500)]public float rotationSpeed;
     [Range(0,360)]public float weaponInitialRotation;
     [Range(0,500)]public float weaponDistance;
