@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Class responsible to organize the other canvases
 public class RoomCanvases : MonoBehaviour
 {
    [SerializeField]
@@ -13,7 +14,9 @@ public class RoomCanvases : MonoBehaviour
    [SerializeField]
    private BackgroundCanvas backgroundCanvas;
    public BackgroundCanvas BackgroundCanvas {get { return backgroundCanvas; } }
-
+   [SerializeField]
+   private LobbyManager lobbyManager;
+    public LobbyManager LobbyManager{get { return lobbyManager; } }
    private void Awake()
    {
        FirstInitialize();
@@ -21,6 +24,7 @@ public class RoomCanvases : MonoBehaviour
 
    private void FirstInitialize()
    {
+       lobbyManager.FirstInitialize(this);
        createOrJoinRoomCanvas.FirstInitialize(this);
        currentRoomCanvas.FirstInitialize(this);
        backgroundCanvas.FirstInitialize(this);

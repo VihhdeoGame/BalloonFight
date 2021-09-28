@@ -4,6 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
+//Class responsible to display every player in a room, instantiating prefabs
 public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 {
    [SerializeField]

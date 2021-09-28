@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Class used to play music
 public class MusicPlayer : MonoBehaviour
 {
     AudioSource musicPlayer;

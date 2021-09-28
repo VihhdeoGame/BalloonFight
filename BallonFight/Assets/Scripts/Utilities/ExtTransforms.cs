@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//Used to Destroy objects 
 public static class Transforms
 {
     public static void DestroyChildren(this Transform t, bool destroyImmediately = false)

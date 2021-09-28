@@ -7,16 +7,14 @@ using UnityEditor;
 #endif
 using UnityEngine;
 
+//Singleton responsible to get the settings for the game
 [CreateAssetMenu(fileName = "GameManagerData", menuName = "ScriptableObjects/GameManager")]
 public class GameManager : SingletonScriptableObject<GameManager>
 {
-    
     [SerializeField]
     private GameSettingsScriptableObjects gameSettings;
-    
     [SerializeField]
     private PlayerSettingsScriptableObjects playerManager;
-    
     [SerializeField]
     private MusicSettingsScriptableObjects musicManger;
     [SerializeField]
@@ -44,6 +42,7 @@ public class GameManager : SingletonScriptableObject<GameManager>
             return lobby;
         }
     }
+    //Function responsible to create instances though the network
     public static GameObject NetworkInstantiante(GameObject obj, Vector3 position, Quaternion rotation)
     {
         foreach (NetworkedPrefab _networkedPrefab in Instance.networkedPrefabs)
@@ -64,13 +63,12 @@ public class GameManager : SingletonScriptableObject<GameManager>
         }
         return null;
     }
-
+    //Fuction responsible to prepare the prefabs for photon network
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void PopulateNetworkedPrefabs()
     {
 #if UNITY_EDITOR       
         Instance.networkedPrefabs.Clear();
-
         GameObject[] results = Resources.LoadAll<GameObject>("");
         for (int i = 0; i < results.Length; i++)
         {
@@ -78,8 +76,7 @@ public class GameManager : SingletonScriptableObject<GameManager>
             {
                 string path = AssetDatabase.GetAssetPath(results[i]);
                 Instance.networkedPrefabs.Add(new NetworkedPrefab(results[i], path));
-            }
-            
+            }    
         }
 #endif
     }

@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
+//Class responsible to create rooms with random names
 public class CreateRoomMenu : MonoBehaviourPunCallbacks
 {
     private string roomName;
@@ -24,7 +25,7 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
         do
         {
             roomName = CreateRandomName(5);
-        } while(roomCanvases.BackgroundCanvas.cachedRoomList.ContainsKey(roomName));
+        } while(roomCanvases.LobbyManager.CachedRoomList.ContainsKey(roomName));
         PhotonNetwork.CreateRoom(roomName, _options,GameManager.Lobby);
         roomCanvases.BackgroundCanvas.Show();
     }

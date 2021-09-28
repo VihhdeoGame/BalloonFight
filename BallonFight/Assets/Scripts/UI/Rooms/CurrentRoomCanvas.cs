@@ -4,6 +4,7 @@ using Photon.Pun;
 using TMPro;
 using UnityEngine;
 
+//Class responsible to organize the canvas
 public class CurrentRoomCanvas : MonoBehaviour
 {
     [SerializeField]

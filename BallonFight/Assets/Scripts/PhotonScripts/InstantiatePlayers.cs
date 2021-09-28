@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
+//Class responsible for player instances though Photon
 public class InstantiatePlayers : MonoBehaviour
 {
     [SerializeField]

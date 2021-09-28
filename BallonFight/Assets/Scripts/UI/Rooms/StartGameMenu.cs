@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
+//Class used to close a room and start the game
 public class StartGameMenu : MonoBehaviourPunCallbacks
 {
     public override void OnEnable()
@@ -10,7 +11,6 @@ public class StartGameMenu : MonoBehaviourPunCallbacks
         base.OnEnable();
         isMaster();
     }
-    
     private void isMaster(){ gameObject.SetActive(PhotonNetwork.IsMasterClient); }
     public void OnClick_StarGame()
     {

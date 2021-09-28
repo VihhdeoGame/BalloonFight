@@ -5,6 +5,7 @@ using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 
+//Class responsible to display a player in a room
 public class PlayerListing : MonoBehaviour
 {
     [SerializeField]

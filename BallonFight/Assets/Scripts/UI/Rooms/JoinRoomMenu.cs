@@ -1,16 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using Photon.Pun;
-using Photon.Realtime;
 using TMPro;
 using UnityEngine;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
+//Class responsible to join rooms 
 public class JoinRoomMenu : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    private TMP_Text roomName;
+    private TMP_InputField roomName;
     private RoomCanvases roomCanvases;
     public void FirstInitialize(RoomCanvases _canvases)
     {
@@ -20,19 +18,21 @@ public class JoinRoomMenu : MonoBehaviourPunCallbacks
     {
         if(!PhotonNetwork.InLobby)
             PhotonNetwork.JoinLobby(GameManager.Lobby);
-        PhotonNetwork.JoinRoom(roomName.text);
+        PhotonNetwork.JoinRoom(roomName.text.ToUpper());
     }
 
     public override void OnJoinedRoom()
     {
         roomName.text = "";
-        Debug.Log("Joined room successfully", this);
-        Debug.Log(string.Concat("Room Name ",PhotonNetwork.CurrentRoom.Name));
+        Debug.Log("Joined room successfully");
+        Debug.Log(string.Concat("Room Name: ",PhotonNetwork.CurrentRoom.Name));
         roomCanvases.CurrentRoomCanvas.Show();
         roomCanvases.CreateOrJoinRoomCanvas.Hide();
     }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        Debug.Log(string.Concat("Room Join failed: ",message), this);
+        roomName.text = "";
+        Debug.Log(string.Concat("Room Join failed: ",message));
+        PhotonNetwork.JoinLobby(GameManager.Lobby);
     }
 }

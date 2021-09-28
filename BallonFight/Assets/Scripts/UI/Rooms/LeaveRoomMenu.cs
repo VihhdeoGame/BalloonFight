@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
+//Class responsible to exit rooms
 public class LeaveRoomMenu : MonoBehaviourPunCallbacks
 {
     private RoomCanvases roomCanvases;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Class responsible to organize the canvas
 public class CreateOrJoinRoomCanvas : MonoBehaviour
 {
     [SerializeField]
@@ -15,12 +16,10 @@ public class CreateOrJoinRoomCanvas : MonoBehaviour
         createRoomMenu.FirstInitialize(_canvases);
         joinRoomMenu.FirstInitialize(_canvases);
     }
-    
     public void Show()
     {
         gameObject.SetActive(true);
     }
-
     public void Hide()
     {
         gameObject.SetActive(false);
