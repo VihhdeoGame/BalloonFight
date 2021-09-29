@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Photon.Pun;
+using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerGeneralManager : MonoBehaviour
 {
     Vector3 spawnPoint;
     bool stuned;
@@ -12,9 +12,12 @@ public class PlayerMove : MonoBehaviour
     Animator animator; 
     Joystick joystick;
     PhotonView view;
+    [SerializeField] PlayerLifeDisplay display;
+    public int currentLives;
     // Start is called before the first frame update
     void Awake()
     {
+        currentLives = GameManager.PlayerManager.playerMaxLives;
         animator = GetComponent<Animator>();
         view = GetComponent<PhotonView>();
         body = GetComponent<Rigidbody2D>();
@@ -40,10 +43,11 @@ public class PlayerMove : MonoBehaviour
         Vector2 move = new Vector2();
         move.Set(horizontal,vertical);
         body.AddForce(move,ForceMode2D.Force);
-        if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0 || Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0)
+        if(Mathf.Abs(horizontal/GameManager.PlayerManager.playerAcceleration/Time.fixedDeltaTime) > 0 
+        || Mathf.Abs(vertical/GameManager.PlayerManager.playerAcceleration/Time.fixedDeltaTime) > 0)
         {
-        animator.SetFloat("Horizontal",Input.GetAxisRaw("Horizontal"));
-        animator.SetFloat("Vertical", Input.GetAxisRaw("Vertical")); 
+        animator.SetFloat("Horizontal", horizontal/GameManager.PlayerManager.playerAcceleration/Time.fixedDeltaTime);
+        animator.SetFloat("Vertical", vertical/GameManager.PlayerManager.playerAcceleration/Time.fixedDeltaTime); 
         }
     
     }
@@ -53,7 +57,7 @@ public class PlayerMove : MonoBehaviour
         body.velocity = Vector2.zero;
         body.angularVelocity = 0;
     }
-    public IEnumerator Stun(PlayerMove player)
+    public IEnumerator Stun(PlayerGeneralManager player)
     {
         stuned = true;
         Vector2 knockbackDirection = (body.velocity*-1) + player.body.velocity*Time.fixedDeltaTime;
@@ -61,9 +65,29 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(3);
         stuned = false;
     }
-    public void GetKnockback(PlayerMove player)
+    public void GetKnockback(PlayerGeneralManager player)
     {
         Vector2 knockbackDirection = (body.velocity + player.body.velocity*Time.fixedDeltaTime)*-1;
         body.AddForce(knockbackDirection,ForceMode2D.Impulse);
+    }
+    public void Damage()
+    {
+        view.RPC("RPC_SendDammage", RpcTarget.All);
+    }
+    void Kill()
+    {
+        gameObject.SetActive(false);
+    }
+
+    [PunRPC]
+    private void RPC_SendDammage()
+    {
+        currentLives--;
+        if(currentLives <= 0)
+            Kill();
+        else
+        {
+            ResetPosition();
+        }
     }
 }

@@ -8,9 +8,10 @@ public class InstantiatePlayers : MonoBehaviour
 {
     [SerializeField]
     private GameObject prefab;
-
+    [SerializeField]
+    PhotonView[] spawnPoints; 
     private void Awake() 
     {
-        GameManager.NetworkInstantiante(prefab, transform.position, Quaternion.identity);        
+        GameManager.NetworkInstantiante(prefab, spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.position, Quaternion.identity);        
     }
 }

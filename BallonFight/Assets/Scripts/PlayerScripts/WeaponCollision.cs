@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class WeaponCollision : MonoBehaviour
 { 
-    public PlayerMove player;
+    public PlayerGeneralManager player;
     private void Start()
     {
-        player = GetComponentInParent<PlayerMove>();        
+        player = GetComponentInParent<PlayerGeneralManager>();        
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -15,7 +15,7 @@ public class WeaponCollision : MonoBehaviour
         {
             if(other.CompareTag("Player"))
             {
-                other.GetComponent<PlayerKill>().Damage();
+                other.GetComponent<PlayerGeneralManager>().Damage();
                 player.ResetPosition();
             }
             if(other.CompareTag("Shield"))
@@ -39,7 +39,7 @@ public class WeaponCollision : MonoBehaviour
             }
             if(other.CompareTag("Player"))
             {
-                player.GetKnockback(other.GetComponent<PlayerMove>());
+                player.GetKnockback(other.GetComponent<PlayerGeneralManager>());
             }
         }        
     }

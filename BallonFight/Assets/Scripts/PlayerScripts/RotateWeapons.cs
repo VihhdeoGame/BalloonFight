@@ -6,11 +6,13 @@ using Photon.Pun;
 public class RotateWeapons : MonoBehaviour
 {
     PhotonView view;
+    RotateButtons buttons;
     [SerializeField]Transform sword;
     [SerializeField]Transform shield;
     private void Start() 
     {
         view = GetComponentInParent<PhotonView>();
+        buttons = FindObjectOfType<RotateButtons>();
         SetInitialPosition();        
     }
     private void LateUpdate()
@@ -19,6 +21,9 @@ public class RotateWeapons : MonoBehaviour
         {
             if(Input.GetKey(KeyCode.E)){ Rotate(true);}        
             if(Input.GetKey(KeyCode.Q)){ Rotate(false);}
+
+            if(buttons.isRotatingLeft()) { Rotate(false);}
+            if(buttons.isRotatingRight()){ Rotate(true);}
         }
     }
 

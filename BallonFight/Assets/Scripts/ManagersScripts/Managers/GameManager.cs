@@ -51,7 +51,7 @@ public class GameManager : SingletonScriptableObject<GameManager>
             {
                 if(_networkedPrefab.Path != string.Empty)
                 {
-                    GameObject result =PhotonNetwork.Instantiate(_networkedPrefab.Path, position, rotation);
+                    GameObject result = PhotonNetwork.Instantiate(_networkedPrefab.Path, position, rotation);
                     return result;
                 }
                 else
