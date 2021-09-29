@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 32
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db38e86f955ae7a4ea12bbb28ab0b46f, type: 3}
+  m_Name: GameManagerData
+  m_EditorClassIdentifier: 
+  gameSettings: {fileID: 11400000, guid: 0344e254283b2064fbd31028c1cf898d, type: 2}
+  playerManager: {fileID: 11400000, guid: 5cdd08f68c84e2048ba32115de8a0a18, type: 2}
+  musicManger: {fileID: 11400000, guid: de0d628284b53da4d886bab38346912a, type: 2}
+  networkLobbyManager: {fileID: 11400000, guid: 2a5d0578a87cd5b46a43ebfcd2223e63,
+    type: 2}
+  sceneManager: {fileID: 11400000, guid: 08566b5e7c8f12e43830ee851bcf4cd0, type: 2}

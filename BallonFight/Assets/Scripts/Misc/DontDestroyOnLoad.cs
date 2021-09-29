@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DontDestroyOnLoad : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // Basic Class to prevent objects from being destroyed between scenes
     [SerializeField]string nameTag;
     void Awake()
     {

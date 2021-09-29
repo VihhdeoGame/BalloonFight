@@ -9,6 +9,10 @@ TagManager:
   - Sword
   - Shield
   - SceneManager
+  - Weapons
+  - Right Button
+  - Left Button
+  - PlayerSpawner
   layers:
   - Default
   - TransparentFX

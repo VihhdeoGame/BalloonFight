@@ -6,7 +6,7 @@ public class PlayerLifeDisplay : MonoBehaviour
 {
     [SerializeField]GameObject lifePrefab;
     List<GameObject> lifeArray;
-    [SerializeField]PlayerKill player;
+    [SerializeField]PlayerGeneralManager player;
     int currentLives;
     private void Start() 
     {
