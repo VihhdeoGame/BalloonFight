@@ -9,26 +9,25 @@ public class MusicPlayer : MonoBehaviour
     [SerializeField]
     string musicName;
     void Start()
-    {/*
+    {
         musicPlayer = GetComponent<AudioSource>();
         PlayMusic(musicName);
         ChangeVolume();
-    */}
+    }
     void PlayMusic(string musicName)
-    { /*
-        for (int i = 0; i <  GameManager.MusicManger.musics.Length; i++)
+    {
+        for (int i = 0; i <  GameManager.MusicManager.musics.Length; i++)
         {
-            if(GameManager.MusicManger.musics[i].name.Equals(musicName))
+            if(GameManager.MusicManager.musics[i].name.Equals(musicName))
             {
-                musicPlayer.clip = GameManager.MusicManger.musics[i].audio;
+                musicPlayer.clip = GameManager.MusicManager.musics[i].audio;
                 break;
             }
         }
         musicPlayer.Play();
-    */}
+    }
     void ChangeVolume()
-    {/*
-        musicPlayer.volume = GameManager.MusicManger.volume/100;
-    */
+    {
+        musicPlayer.volume = GameManager.MusicManager.volume/100;
     }
 }

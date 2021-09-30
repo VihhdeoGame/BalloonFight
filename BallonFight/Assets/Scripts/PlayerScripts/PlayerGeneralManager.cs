@@ -9,10 +9,13 @@ public class PlayerGeneralManager : MonoBehaviour
     bool stuned;
     public int playerNumber;
     public Rigidbody2D body;
+    public Color color;
     Animator animator; 
     Joystick joystick;
     PhotonView view;
     [SerializeField] PlayerLifeDisplay display;
+    [SerializeField] SpriteRenderer sprite;
+    [SerializeField] Animator stringAnimator;
     public int currentLives;
     // Start is called before the first frame update
     void Awake()
@@ -24,6 +27,8 @@ public class PlayerGeneralManager : MonoBehaviour
         joystick = FindObjectOfType<Joystick>();
         spawnPoint = transform.position;
         playerNumber = view.ControllerActorNr;
+        color = GameManager.PlayerManager.SetColor(playerNumber);
+        sprite.color = color;
     }
 
     // Update is called once per frame
@@ -56,6 +61,13 @@ public class PlayerGeneralManager : MonoBehaviour
         transform.position = spawnPoint;
         body.velocity = Vector2.zero;
         body.angularVelocity = 0;
+        if(currentLives <= 0)
+            Kill();
+        else
+        {
+            animator.SetBool("Death", false);
+            stringAnimator.enabled = true;
+        }    
     }
     public IEnumerator Stun(PlayerGeneralManager player)
     {
@@ -83,11 +95,7 @@ public class PlayerGeneralManager : MonoBehaviour
     private void RPC_SendDammage()
     {
         currentLives--;
-        if(currentLives <= 0)
-            Kill();
-        else
-        {
-            ResetPosition();
-        }
+        animator.SetBool("Death", true);
+        stringAnimator.enabled = false;
     }
 }

@@ -312,8 +312,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 909.99994, y: 0}
-  m_SizeDelta: {x: 240, y: 980.1221}
+  m_AnchoredPosition: {x: 970.8, y: 0}
+  m_SizeDelta: {x: 300.76025, y: 1120}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &153864417
 MonoBehaviour:
@@ -479,8 +479,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -909.99994, y: 0}
-  m_SizeDelta: {x: 239.99994, y: 980.1221}
+  m_AnchoredPosition: {x: -970.8, y: 0}
+  m_SizeDelta: {x: 300.75995, y: 1120}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &430266807
 MonoBehaviour:
@@ -7456,7 +7456,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9372549, g: 1, b: 0.654902, a: 1}
   m_Origin: {x: -18, y: -10, z: 0}
   m_Size: {x: 36, y: 20, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}

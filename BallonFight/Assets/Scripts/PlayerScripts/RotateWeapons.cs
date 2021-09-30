@@ -9,7 +9,7 @@ public class RotateWeapons : MonoBehaviour
     RotateButtons buttons;
     [SerializeField]Transform sword;
     [SerializeField]Transform shield;
-    private void Start() 
+    private void Awake() 
     {
         view = GetComponentInParent<PhotonView>();
         buttons = FindObjectOfType<RotateButtons>();

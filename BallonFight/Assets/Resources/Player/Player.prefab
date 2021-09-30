@@ -244,7 +244,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 0
   body: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
   display: {fileID: 0}
+  sprite: {fileID: 4275836948187937667}
+  stringAnimator: {fileID: 3619264079178308982}
   currentLives: 0
 --- !u!50 &8186914770279193884
 Rigidbody2D:
@@ -381,6 +384,9 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 1
     Name: Vertical
+  - Type: 9
+    SynchronizeType: 0
+    Name: Death
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
