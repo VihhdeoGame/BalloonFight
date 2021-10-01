@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class PlayerLifeDisplay : MonoBehaviour
 {
     [SerializeField]GameObject lifePrefab;
     List<GameObject> lifeArray;
-    [SerializeField]PlayerGeneralManager player;
+    PlayerGeneralManager[] players;
     int currentLives;
     private void Start() 
     {
+        players = FindObjectsOfType<PlayerGeneralManager>();
+        Debug.Log(players.ToString());
         lifeArray = new List<GameObject>();
-        DisplayHearts(player.currentLives);
+        DisplayHearts(players[PhotonNetwork.LocalPlayer.ActorNumber-1].currentLives);
     }
     void DisplayHearts(int maxLives)
     {
@@ -25,8 +28,7 @@ public class PlayerLifeDisplay : MonoBehaviour
     {
         if(currentLives > lives)
         {
-            Destroy(lifeArray[currentLives-1]);
-            lifeArray.RemoveAt(currentLives-1);
+            lifeArray[currentLives-1].SetActive(false);
             currentLives = lives;
         }
     }

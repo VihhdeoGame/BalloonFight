@@ -13,13 +13,14 @@ public class PlayerGeneralManager : MonoBehaviour
     Animator animator; 
     Joystick joystick;
     PhotonView view;
-    [SerializeField] PlayerLifeDisplay display;
+    PlayerLifeDisplay display;
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] Animator stringAnimator;
     public int currentLives;
     // Start is called before the first frame update
     void Awake()
     {
+        display = FindObjectOfType<PlayerLifeDisplay>();
         currentLives = GameManager.PlayerManager.playerMaxLives;
         animator = GetComponent<Animator>();
         view = GetComponent<PhotonView>();
@@ -95,6 +96,8 @@ public class PlayerGeneralManager : MonoBehaviour
     private void RPC_SendDammage()
     {
         currentLives--;
+        if(view.IsMine)
+            display.UpdateHearts(currentLives);
         animator.SetBool("Death", true);
         stringAnimator.enabled = false;
     }

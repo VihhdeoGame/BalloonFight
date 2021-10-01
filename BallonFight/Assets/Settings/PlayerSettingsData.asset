@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerSettingsData
   m_EditorClassIdentifier: 
   playerAcceleration: 100
-  rotationSpeed: 200
+  rotationSpeed: 250
   weaponInitialRotation: 0
   weaponDistance: 1.1
   playerMaxLives: 5
