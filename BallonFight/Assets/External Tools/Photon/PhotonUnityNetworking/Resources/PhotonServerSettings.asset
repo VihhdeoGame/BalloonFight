@@ -42,6 +42,7 @@ MonoBehaviour:
   - RPC_SendDammage
   - CountdownToStart
   - RPC_CountdownToStart
+  - RPC_SetReady
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

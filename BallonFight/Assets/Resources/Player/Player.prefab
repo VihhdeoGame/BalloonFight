@@ -248,6 +248,7 @@ MonoBehaviour:
   sprite: {fileID: 4275836948187937667}
   stringAnimator: {fileID: 3619264079178308982}
   currentLives: 0
+  isReady: 0
 --- !u!50 &8186914770279193884
 Rigidbody2D:
   serializedVersion: 4

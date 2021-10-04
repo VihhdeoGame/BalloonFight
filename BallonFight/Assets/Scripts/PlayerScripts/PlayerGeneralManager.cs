@@ -17,6 +17,7 @@ public class PlayerGeneralManager : MonoBehaviour
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] Animator stringAnimator;
     public int currentLives;
+    public bool isReady = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -30,19 +31,29 @@ public class PlayerGeneralManager : MonoBehaviour
         playerNumber = view.ControllerActorNr;
         color = GameManager.PlayerManager.SetColor(playerNumber);
         sprite.color = color;
+        view.RPC("RPC_SetReady", RpcTarget.AllBuffered);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(view.IsMine && !stuned)
+        if(display == null)
         {
-            Move(Input.GetAxisRaw("Horizontal")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
-                 Input.GetAxisRaw("Vertical")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);        
-            
-            Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
-                 joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
+            display = FindObjectOfType<PlayerLifeDisplay>();
         }
+        if(joystick == null)
+        {
+            joystick = FindObjectOfType<Joystick>();
+        }
+        else
+            if(view.IsMine && !stuned)
+            {
+                Move(Input.GetAxisRaw("Horizontal")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
+                    Input.GetAxisRaw("Vertical")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);        
+                
+                Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
+                    joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
+            }
     }
     void Move(float horizontal, float vertical)
     {
@@ -100,5 +111,10 @@ public class PlayerGeneralManager : MonoBehaviour
             display.UpdateHearts(currentLives);
         animator.SetBool("Death", true);
         stringAnimator.enabled = false;
+    }
+    [PunRPC]
+    private void RPC_SetReady()
+    {
+        isReady = true;
     }
 }
