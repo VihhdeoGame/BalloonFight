@@ -8,7 +8,7 @@ using UnityEngine;
 public class CurrentRoomCanvas : MonoBehaviour
 {
     [SerializeField]
-    private TMP_Text roomName;
+    private TMP_InputField roomName;
     [SerializeField]
     private PlayerListingsMenu playerListingsMenu;
     [SerializeField]

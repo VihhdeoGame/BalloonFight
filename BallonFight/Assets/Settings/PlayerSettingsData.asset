@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: PlayerSettingsData
   m_EditorClassIdentifier: 
   playerAcceleration: 100
-  rotationSpeed: 200
+  rotationSpeed: 250
   weaponInitialRotation: 0
   weaponDistance: 1.1
   playerMaxLives: 5
+  playerColors:
+  - {r: 0.8, g: 0.73333335, b: 0.26666668, a: 0}
+  - {r: 0.13333334, g: 0.53333336, b: 0.2, a: 0}
+  - {r: 0.4, g: 0.8, b: 0.93333334, a: 0}
+  - {r: 1, g: 0.5372549, b: 0.8862745, a: 0}

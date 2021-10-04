@@ -14,4 +14,11 @@ public class PlayerSettingsScriptableObjects : ScriptableObject
     [Header("Lives")]
     [Range(1,5)]public int playerMaxLives;
 
+    [Header("Player Colors")]
+    public Color[] playerColors;
+
+    public Color SetColor(int playerNumber)
+    {
+        return playerColors[playerNumber - 1];
+    }
 }

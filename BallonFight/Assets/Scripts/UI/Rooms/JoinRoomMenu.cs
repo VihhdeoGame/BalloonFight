@@ -9,6 +9,8 @@ public class JoinRoomMenu : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private TMP_InputField roomName;
+    [SerializeField]
+    private TMP_Text errorMessageText;
     private RoomCanvases roomCanvases;
     public void FirstInitialize(RoomCanvases _canvases)
     {
@@ -32,7 +34,7 @@ public class JoinRoomMenu : MonoBehaviourPunCallbacks
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         roomName.text = "";
-        Debug.Log(string.Concat("Room Join failed: ",message));
+        errorMessageText.text = string.Concat("Failed to join room!\nReason: ",message);
         PhotonNetwork.JoinLobby(GameManager.Lobby);
     }
 }
