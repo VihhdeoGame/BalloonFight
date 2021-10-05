@@ -51,7 +51,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifePrefab: {fileID: 7073294539999706675, guid: ec596f29651737f4da6a6bab2b55b0db,
     type: 3}
-  player: {fileID: 0}
 --- !u!114 &7383735543964120440
 MonoBehaviour:
   m_ObjectHideFlags: 0

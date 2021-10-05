@@ -14,6 +14,7 @@ public class PlayerGeneralManager : MonoBehaviour
     Joystick joystick;
     PhotonView view;
     PlayerLifeDisplay display;
+    OthersLifeDisplay othersDisplay;
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] Animator stringAnimator;
     public int currentLives;
@@ -40,6 +41,10 @@ public class PlayerGeneralManager : MonoBehaviour
         if(display == null)
         {
             display = FindObjectOfType<PlayerLifeDisplay>();
+        }
+        if(othersDisplay == null)
+        {
+            othersDisplay = FindObjectOfType<OthersLifeDisplay>();
         }
         if(joystick == null)
         {
@@ -84,9 +89,11 @@ public class PlayerGeneralManager : MonoBehaviour
     public IEnumerator Stun(PlayerGeneralManager player)
     {
         stuned = true;
+        animator.SetBool("Stunned", true);
         Vector2 knockbackDirection = (body.velocity*-1) + player.body.velocity*Time.fixedDeltaTime;
         body.AddForce(knockbackDirection, ForceMode2D.Impulse);
         yield return new WaitForSeconds(3);
+        animator.SetBool("Stunned", false);
         stuned = false;
     }
     public void GetKnockback(PlayerGeneralManager player)
@@ -109,6 +116,8 @@ public class PlayerGeneralManager : MonoBehaviour
         currentLives--;
         if(view.IsMine)
             display.UpdateHearts(currentLives);
+        else
+            othersDisplay.othersLives[playerNumber].UpdateHearts(currentLives);
         animator.SetBool("Death", true);
         stringAnimator.enabled = false;
     }
