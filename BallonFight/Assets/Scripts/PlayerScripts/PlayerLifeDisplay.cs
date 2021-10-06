@@ -13,7 +13,6 @@ public class PlayerLifeDisplay : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
         players = FindObjectsOfType<PlayerGeneralManager>();
-        Debug.Log(players.ToString());
         lifeArray = new List<GameObject>();
         DisplayHearts(players[PhotonNetwork.LocalPlayer.ActorNumber-1].currentLives);
     }

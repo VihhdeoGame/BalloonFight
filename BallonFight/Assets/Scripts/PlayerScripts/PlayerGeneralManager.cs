@@ -19,6 +19,7 @@ public class PlayerGeneralManager : MonoBehaviour
     [SerializeField] Animator stringAnimator;
     public int currentLives;
     public bool isReady = false;
+    ScoreManager scoreManager;
     // Start is called before the first frame update
     void Awake()
     {
@@ -32,12 +33,15 @@ public class PlayerGeneralManager : MonoBehaviour
         playerNumber = view.ControllerActorNr;
         color = GameManager.PlayerManager.SetColor(playerNumber);
         sprite.color = color;
+        scoreManager = FindObjectOfType<ScoreManager>();
         view.RPC("RPC_SetReady", RpcTarget.AllBuffered);
     }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
+        if(scoreManager == null)
+        {
+            scoreManager = FindObjectOfType<ScoreManager>();
+        }
         if(display == null)
         {
             display = FindObjectOfType<PlayerLifeDisplay>();
@@ -59,6 +63,8 @@ public class PlayerGeneralManager : MonoBehaviour
                 Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
                     joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
             }
+        if(scoreManager.Scores.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1 && isReady)
+            GetVictoryScreen();
     }
     void Move(float horizontal, float vertical)
     {
@@ -108,6 +114,7 @@ public class PlayerGeneralManager : MonoBehaviour
     void Kill()
     {
         gameObject.SetActive(false);
+        scoreManager.AddToScores(playerNumber);
     }
 
     [PunRPC]
@@ -125,5 +132,10 @@ public class PlayerGeneralManager : MonoBehaviour
     private void RPC_SetReady()
     {
         isReady = true;
+    }
+    void GetVictoryScreen()
+    {
+        scoreManager.AddToScores(playerNumber);
+        isReady = false;
     }
 }
