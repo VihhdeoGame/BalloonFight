@@ -17,14 +17,19 @@ public class RotateWeapons : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if(view.IsMine)
+        if(buttons == null)
         {
-            if(Input.GetKey(KeyCode.E)){ Rotate(true);}        
-            if(Input.GetKey(KeyCode.Q)){ Rotate(false);}
-
-            if(buttons.isRotatingLeft()) { Rotate(false);}
-            if(buttons.isRotatingRight()){ Rotate(true);}
+            buttons = FindObjectOfType<RotateButtons>();
         }
+        else
+            if(view.IsMine)
+            {
+                if(Input.GetKey(KeyCode.E)){ Rotate(true);}        
+                if(Input.GetKey(KeyCode.Q)){ Rotate(false);}
+
+                if(buttons.isRotatingLeft()) { Rotate(false);}
+                if(buttons.isRotatingRight()){ Rotate(true);}
+            }
     }
 
     void SetInitialPosition()

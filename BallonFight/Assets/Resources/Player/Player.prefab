@@ -248,6 +248,7 @@ MonoBehaviour:
   sprite: {fileID: 4275836948187937667}
   stringAnimator: {fileID: 3619264079178308982}
   currentLives: 0
+  isReady: 0
 --- !u!50 &8186914770279193884
 Rigidbody2D:
   serializedVersion: 4
@@ -717,6 +718,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RotationModel.InterpolateRotateTowardsSpeed
       value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 6623588426326640398, guid: 89465cdcd023d3845bda235c62c17a02,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8062782045568801975, guid: 89465cdcd023d3845bda235c62c17a02,
         type: 3}

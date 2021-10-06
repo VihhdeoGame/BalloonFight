@@ -14,9 +14,11 @@ public class PlayerGeneralManager : MonoBehaviour
     Joystick joystick;
     PhotonView view;
     PlayerLifeDisplay display;
+    OthersLifeDisplay othersDisplay;
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] Animator stringAnimator;
     public int currentLives;
+    public bool isReady = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -30,19 +32,33 @@ public class PlayerGeneralManager : MonoBehaviour
         playerNumber = view.ControllerActorNr;
         color = GameManager.PlayerManager.SetColor(playerNumber);
         sprite.color = color;
+        view.RPC("RPC_SetReady", RpcTarget.AllBuffered);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(view.IsMine && !stuned)
+        if(display == null)
         {
-            Move(Input.GetAxisRaw("Horizontal")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
-                 Input.GetAxisRaw("Vertical")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);        
-            
-            Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
-                 joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
+            display = FindObjectOfType<PlayerLifeDisplay>();
         }
+        if(othersDisplay == null)
+        {
+            othersDisplay = FindObjectOfType<OthersLifeDisplay>();
+        }
+        if(joystick == null)
+        {
+            joystick = FindObjectOfType<Joystick>();
+        }
+        else
+            if(view.IsMine && !stuned)
+            {
+                Move(Input.GetAxisRaw("Horizontal")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
+                    Input.GetAxisRaw("Vertical")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);        
+                
+                Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
+                    joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
+            }
     }
     void Move(float horizontal, float vertical)
     {
@@ -73,9 +89,11 @@ public class PlayerGeneralManager : MonoBehaviour
     public IEnumerator Stun(PlayerGeneralManager player)
     {
         stuned = true;
+        animator.SetBool("Stunned", true);
         Vector2 knockbackDirection = (body.velocity*-1) + player.body.velocity*Time.fixedDeltaTime;
         body.AddForce(knockbackDirection, ForceMode2D.Impulse);
         yield return new WaitForSeconds(3);
+        animator.SetBool("Stunned", false);
         stuned = false;
     }
     public void GetKnockback(PlayerGeneralManager player)
@@ -98,7 +116,14 @@ public class PlayerGeneralManager : MonoBehaviour
         currentLives--;
         if(view.IsMine)
             display.UpdateHearts(currentLives);
+        else
+            othersDisplay.othersLives[playerNumber].UpdateHearts(currentLives);
         animator.SetBool("Death", true);
         stringAnimator.enabled = false;
+    }
+    [PunRPC]
+    private void RPC_SetReady()
+    {
+        isReady = true;
     }
 }

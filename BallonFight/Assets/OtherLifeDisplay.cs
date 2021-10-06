@@ -3,21 +3,17 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class PlayerLifeDisplay : MonoBehaviourPunCallbacks
+public class OtherLifeDisplay : MonoBehaviourPunCallbacks
 {
     [SerializeField]GameObject lifePrefab;
     List<GameObject> lifeArray;
-    PlayerGeneralManager[] players;
     int currentLives;
     public override void OnEnable() 
     {
         base.OnEnable();
-        players = FindObjectsOfType<PlayerGeneralManager>();
-        Debug.Log(players.ToString());
         lifeArray = new List<GameObject>();
-        DisplayHearts(players[PhotonNetwork.LocalPlayer.ActorNumber-1].currentLives);
     }
-    void DisplayHearts(int maxLives)
+    public void DisplayHearts(int maxLives)
     {
         for (int i = 0; i < maxLives; i++)
         {
