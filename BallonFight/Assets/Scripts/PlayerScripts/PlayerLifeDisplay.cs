@@ -26,6 +26,14 @@ public class PlayerLifeDisplay : MonoBehaviourPunCallbacks
     }
     public void UpdateHearts(int lives)
     {
+        if(lives > currentLives)
+        {
+            for (int i = 0; i < lifeArray.Count; i++)
+            {
+                lifeArray[i].SetActive(true);
+                currentLives = lives;                
+            }
+        }
         if(currentLives > lives)
         {
             lifeArray[currentLives-1].SetActive(false);

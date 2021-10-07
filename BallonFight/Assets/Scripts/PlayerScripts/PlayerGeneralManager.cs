@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerGeneralManager : MonoBehaviour
 {
+    AudioSource sfx;
     Vector3 spawnPoint;
     bool stuned;
     public int playerNumber;
@@ -13,6 +14,7 @@ public class PlayerGeneralManager : MonoBehaviour
     Animator animator; 
     Joystick joystick;
     PhotonView view;
+    public PhotonView View {get{ return view;}}
     PlayerLifeDisplay display;
     OthersLifeDisplay othersDisplay;
     [SerializeField] SpriteRenderer sprite;
@@ -23,6 +25,7 @@ public class PlayerGeneralManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        sfx = GetComponent<AudioSource>(); 
         display = FindObjectOfType<PlayerLifeDisplay>();
         currentLives = GameManager.PlayerManager.playerMaxLives;
         animator = GetComponent<Animator>();
@@ -34,7 +37,7 @@ public class PlayerGeneralManager : MonoBehaviour
         color = GameManager.PlayerManager.SetColor(playerNumber);
         sprite.color = color;
         scoreManager = FindObjectOfType<ScoreManager>();
-        view.RPC("RPC_SetReady", RpcTarget.AllBuffered);
+        view.RPC("RPC_SetReady", RpcTarget.AllBuffered, true);
     }
     void FixedUpdate()
     {
@@ -63,7 +66,7 @@ public class PlayerGeneralManager : MonoBehaviour
                 Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
                     joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
             }
-        if(scoreManager.Scores.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1 && isReady)
+        if(scoreManager.Scores.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1)
             GetVictoryScreen();
     }
     void Move(float horizontal, float vertical)
@@ -115,12 +118,14 @@ public class PlayerGeneralManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         scoreManager.AddToScores(playerNumber);
+        view.RPC("RPC_SetReady", RpcTarget.All, false);
     }
 
     [PunRPC]
     private void RPC_SendDammage()
     {
         currentLives--;
+        
         if(view.IsMine)
             display.UpdateHearts(currentLives);
         else
@@ -129,13 +134,33 @@ public class PlayerGeneralManager : MonoBehaviour
         stringAnimator.enabled = false;
     }
     [PunRPC]
-    private void RPC_SetReady()
+    private void RPC_SetReady(bool _isReady)
     {
-        isReady = true;
+        isReady = _isReady;
     }
+    [PunRPC]
     void GetVictoryScreen()
     {
         scoreManager.AddToScores(playerNumber);
-        isReady = false;
+        gameObject.SetActive(false);
+        view.RPC("RPC_SetReady", RpcTarget.All, false);        
+    }
+    [PunRPC]
+    public void RPC_ResetValues()
+    {
+        gameObject.SetActive(true);
+        transform.position = spawnPoint;
+        body.velocity = Vector2.zero;
+        body.angularVelocity = 0;
+        currentLives = GameManager.PlayerManager.playerMaxLives;
+        animator.SetBool("Death", false);
+        if(view.IsMine)
+            display.UpdateHearts(currentLives);
+        else
+            othersDisplay.othersLives[playerNumber].UpdateHearts(currentLives);
+    }
+    public void PlaySFX()
+    {
+        sfx.Play();
     }
 }
