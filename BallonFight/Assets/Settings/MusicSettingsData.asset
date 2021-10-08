@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea42da50569b98a4eb941d897f7908d6, type: 3}
   m_Name: MusicSettingsData
   m_EditorClassIdentifier: 
-  volume: 50
+  volume: 0
   musics:
   - name: Run for It
     audio: {fileID: 8300000, guid: 2e3fc4255a5e6ff4ea529ec7e5c65126, type: 3}

@@ -13,6 +13,5 @@ public class SceneManagerScriptableObjects : ScriptableObject
     public void LoadScene(string scene)
     {
         SceneManager.LoadScene(scene);
-    }    
-
+    }
 }

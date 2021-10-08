@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviourPunCallbacks
 {
     [SerializeField]
+    Fade fade;
+    [SerializeField]
     GameplayCanvases canvases;
     Stack<int> scores = new Stack<int>();
     public Stack<int> Scores{get {return scores; } }
@@ -21,12 +23,8 @@ public class ScoreManager : MonoBehaviourPunCallbacks
     PlayerGeneralManager[] playerManagers;
     private void Update()
     {
-        if(playerManagers == null)
-            UpdatePlayerList();
-        if(!canvases.VictoryScreenCanvas.isActiveAndEnabled)
-            CheckVictory();
-        else
-            CheckIsReady();   
+       if(!canvases.VictoryScreenCanvas.isActiveAndEnabled)
+            CheckVictory();   
     }
     void UpdatePlayerList()
     {
@@ -104,8 +102,7 @@ public class ScoreManager : MonoBehaviourPunCallbacks
     }
     public void OnClick_LeaveRoom()
     {
-        scores.Clear();
-        playerManagers = null;
+        fade.FadeIn();
         PhotonNetwork.Disconnect();
     }
     public override void OnDisconnected(DisconnectCause cause)

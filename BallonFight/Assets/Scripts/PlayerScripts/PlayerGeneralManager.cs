@@ -66,8 +66,10 @@ public class PlayerGeneralManager : MonoBehaviour
                 Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
                     joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
             }
-        if(scoreManager.Scores.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1)
-            GetVictoryScreen();
+        if(scoreManager.Scores.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1 && isReady)
+            {
+                GetVictoryScreen();
+            }
     }
     void Move(float horizontal, float vertical)
     {
@@ -118,14 +120,14 @@ public class PlayerGeneralManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         scoreManager.AddToScores(playerNumber);
-        view.RPC("RPC_SetReady", RpcTarget.All, false);
+        RPC_SetReady(false);
+        view.RPC("RPC_SetReady", RpcTarget.Others, false);
     }
 
     [PunRPC]
     private void RPC_SendDammage()
     {
         currentLives--;
-        
         if(view.IsMine)
             display.UpdateHearts(currentLives);
         else
@@ -143,7 +145,8 @@ public class PlayerGeneralManager : MonoBehaviour
     {
         scoreManager.AddToScores(playerNumber);
         gameObject.SetActive(false);
-        view.RPC("RPC_SetReady", RpcTarget.All, false);        
+        RPC_SetReady(false);
+        view.RPC("RPC_SetReady", RpcTarget.Others, false);        
     }
     [PunRPC]
     public void RPC_ResetValues()
