@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class PlayerGeneralManager : MonoBehaviour
 {
+    private const byte SEND_SCORE_EVENT = 100;
     AudioSource sfx;
     Vector3 spawnPoint;
     bool stuned;
@@ -118,10 +121,10 @@ public class PlayerGeneralManager : MonoBehaviour
     }
     void Kill()
     {
+        object[] datas = new object[] {playerNumber};
+        PhotonNetwork.RaiseEvent(SEND_SCORE_EVENT,datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        view.RPC("RPC_SetReady", RpcTarget.All,false);
         gameObject.SetActive(false);
-        scoreManager.AddToScores(playerNumber);
-        RPC_SetReady(false);
-        view.RPC("RPC_SetReady", RpcTarget.Others, false);
     }
 
     [PunRPC]
@@ -140,13 +143,13 @@ public class PlayerGeneralManager : MonoBehaviour
     {
         isReady = _isReady;
     }
-    [PunRPC]
     void GetVictoryScreen()
     {
-        scoreManager.AddToScores(playerNumber);
-        gameObject.SetActive(false);
-        RPC_SetReady(false);
-        view.RPC("RPC_SetReady", RpcTarget.Others, false);        
+        object[] datas = new object[] {playerNumber};
+        PhotonNetwork.RaiseEvent(SEND_SCORE_EVENT,datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        view.RPC("RPC_SetReady", RpcTarget.All,false); 
+        //gameObject.SetActive(false);
+               
     }
     [PunRPC]
     public void RPC_ResetValues()

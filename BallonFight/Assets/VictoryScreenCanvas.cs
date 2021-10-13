@@ -6,8 +6,6 @@ using UnityEngine;
 public class VictoryScreenCanvas : MonoBehaviour
 {
     private GameplayCanvases gameplayCanvases;
-    [SerializeField]
-    ScoreManager score;
     public void FirstInitialize(GameplayCanvases _canvases)
     {
         gameplayCanvases = _canvases;

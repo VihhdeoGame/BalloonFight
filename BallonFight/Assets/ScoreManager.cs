@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviourPunCallbacks
+public class ScoreManager : MonoBehaviourPun,IOnEventCallback
 {
+    private const byte SEND_SCORE_EVENT = 100;
     [SerializeField]
     Fade fade;
     [SerializeField]
@@ -21,6 +23,14 @@ public class ScoreManager : MonoBehaviourPunCallbacks
     [SerializeField]
     TMP_Text[] playersText;
     PlayerGeneralManager[] playerManagers;
+    private void OnEnable()
+    {
+        PhotonNetwork.AddCallbackTarget(this);        
+    }
+    private void OnDisable() 
+    {
+        PhotonNetwork.RemoveCallbackTarget(this);        
+    }
     private void Update()
     {
        if(!canvases.VictoryScreenCanvas.isActiveAndEnabled)
@@ -76,15 +86,6 @@ public class ScoreManager : MonoBehaviourPunCallbacks
             }
         }
     }
-    public void AddToScores(int player)
-    {
-        this.photonView.RPC("RPC_SendScore",RpcTarget.All,player);
-    }
-    [PunRPC]
-    void RPC_SendScore(int _player)
-    {
-        scores.Push(_player);
-    }
     void CheckVictory()
     {
         if(scores.Count == PhotonNetwork.CurrentRoom.PlayerCount)
@@ -93,8 +94,9 @@ public class ScoreManager : MonoBehaviourPunCallbacks
             {
                 numbers[i].SetActive(true);
                 players[i].SetActive(true);
-                playersText[i].text = PhotonNetwork.CurrentRoom.GetPlayer(scores.Peek()).NickName;
-                players[i].GetComponent<Image>().color = GameManager.PlayerManager.SetColor(scores.Pop());
+                int _score = scores.Pop();
+                playersText[i].text = PhotonNetwork.CurrentRoom.GetPlayer(_score).NickName;
+                players[i].GetComponent<Image>().color = GameManager.PlayerManager.SetColor(_score);
             }
             canvases.VictoryScreenCanvas.Show();
             canvases.GameplayUICanvas.Hide();
@@ -105,9 +107,18 @@ public class ScoreManager : MonoBehaviourPunCallbacks
         fade.FadeIn();
         PhotonNetwork.Disconnect();
     }
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        GameManager.SceneManager.LoadScene("Main Menu");        
-    }
+    //public override void OnDisconnected(DisconnectCause cause)
+    //{
+    //    GameManager.SceneManager.LoadScene("Main Menu");        
+    //}
 
+    public void OnEvent(EventData photonEvent)
+    {
+        if(photonEvent.Code == SEND_SCORE_EVENT)
+        {
+            object[] datas = (object[])photonEvent.CustomData;
+            int _score = (int)datas[0];
+            scores.Push(_score);
+        }
+    }
 }
