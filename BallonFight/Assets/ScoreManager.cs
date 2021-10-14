@@ -7,15 +7,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviourPun,IOnEventCallback
+public class ScoreManager : MonoBehaviourPunCallbacks,IOnEventCallback
 {
-    private const byte SEND_SCORE_EVENT = 100;
+    private const byte SEND_SCORE_EVENT = 0;
+    private const byte SEND_LEADERBOARD_EVENT= 1;
     [SerializeField]
     Fade fade;
     [SerializeField]
     GameplayCanvases canvases;
+    Queue<int> scoresReceived = new Queue<int>();
     Stack<int> scores = new Stack<int>();
-    public Stack<int> Scores{get {return scores; } }
+    public Queue<int> ScoresReceived{get{return scoresReceived;}}
     [SerializeField]
     GameObject[] numbers;
     [SerializeField]
@@ -23,6 +25,7 @@ public class ScoreManager : MonoBehaviourPun,IOnEventCallback
     [SerializeField]
     TMP_Text[] playersText;
     PlayerGeneralManager[] playerManagers;
+    bool eventSent = false;
     private void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);        
@@ -31,10 +34,21 @@ public class ScoreManager : MonoBehaviourPun,IOnEventCallback
     {
         PhotonNetwork.RemoveCallbackTarget(this);        
     }
-    private void Update()
+    
+    private void Update() 
     {
-       if(!canvases.VictoryScreenCanvas.isActiveAndEnabled)
-            CheckVictory();   
+        if(PhotonNetwork.IsConnected)
+            if(scoresReceived.Count == PhotonNetwork.CurrentRoom.PlayerCount && !eventSent)
+            {
+                object[] datas = new object[PhotonNetwork.CurrentRoom.PlayerCount];
+                for (int i = 0; i < datas.Length; i++)
+                {
+                    datas[i] = scoresReceived.Dequeue();                                
+                }
+                RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+                PhotonNetwork.RaiseEvent(SEND_LEADERBOARD_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
+                eventSent = true;
+            }        
     }
     void UpdatePlayerList()
     {
@@ -88,37 +102,45 @@ public class ScoreManager : MonoBehaviourPun,IOnEventCallback
     }
     void CheckVictory()
     {
-        if(scores.Count == PhotonNetwork.CurrentRoom.PlayerCount)
+        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-            {
-                numbers[i].SetActive(true);
-                players[i].SetActive(true);
-                int _score = scores.Pop();
-                playersText[i].text = PhotonNetwork.CurrentRoom.GetPlayer(_score).NickName;
-                players[i].GetComponent<Image>().color = GameManager.PlayerManager.SetColor(_score);
-            }
-            canvases.VictoryScreenCanvas.Show();
-            canvases.GameplayUICanvas.Hide();
+            numbers[i].SetActive(true);
+            players[i].SetActive(true);
+            int _score = scores.Pop();
+            playersText[i].text = PhotonNetwork.CurrentRoom.GetPlayer(_score).NickName;
+            players[i].GetComponent<Image>().color = GameManager.PlayerManager.SetColor(_score);
         }
+        canvases.VictoryScreenCanvas.Show();
+        canvases.GameplayUICanvas.Hide();
     }
     public void OnClick_LeaveRoom()
     {
         fade.FadeIn();
         PhotonNetwork.Disconnect();
     }
-    //public override void OnDisconnected(DisconnectCause cause)
-    //{
-    //    GameManager.SceneManager.LoadScene("Main Menu");        
-    //}
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        GameManager.SceneManager.LoadScene("Main Menu");        
+    }
 
     public void OnEvent(EventData photonEvent)
     {
+        Debug.Log(string.Concat("Event Recived: ",photonEvent.Code.ToString()));
         if(photonEvent.Code == SEND_SCORE_EVENT)
         {
             object[] datas = (object[])photonEvent.CustomData;
             int _score = (int)datas[0];
-            scores.Push(_score);
+            scoresReceived.Enqueue(_score);
+        }
+        if(photonEvent.Code == SEND_LEADERBOARD_EVENT)
+        {
+            object[] datas = (object[])photonEvent.CustomData;
+            for (int i = 0; i < datas.Length; i++)
+            {
+                int _score = (int)datas[i];
+                scores.Push(_score);               
+            }
+            CheckVictory();
         }
     }
 }

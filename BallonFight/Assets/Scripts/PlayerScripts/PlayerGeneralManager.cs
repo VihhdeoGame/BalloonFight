@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PlayerGeneralManager : MonoBehaviour
 {
-    private const byte SEND_SCORE_EVENT = 100;
+    private const byte SEND_SCORE_EVENT = 0;
     AudioSource sfx;
     Vector3 spawnPoint;
     bool stuned;
@@ -69,7 +69,7 @@ public class PlayerGeneralManager : MonoBehaviour
                 Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
                     joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
             }
-        if(scoreManager.Scores.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1 && isReady)
+        if(scoreManager.ScoresReceived.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1 && isReady)
             {
                 GetVictoryScreen();
             }
@@ -122,9 +122,10 @@ public class PlayerGeneralManager : MonoBehaviour
     void Kill()
     {
         object[] datas = new object[] {playerNumber};
-        PhotonNetwork.RaiseEvent(SEND_SCORE_EVENT,datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient };
+        PhotonNetwork.RaiseEvent(SEND_SCORE_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
         view.RPC("RPC_SetReady", RpcTarget.All,false);
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     [PunRPC]
@@ -146,7 +147,8 @@ public class PlayerGeneralManager : MonoBehaviour
     void GetVictoryScreen()
     {
         object[] datas = new object[] {playerNumber};
-        PhotonNetwork.RaiseEvent(SEND_SCORE_EVENT,datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient };
+        PhotonNetwork.RaiseEvent(SEND_SCORE_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
         view.RPC("RPC_SetReady", RpcTarget.All,false); 
         //gameObject.SetActive(false);
                
