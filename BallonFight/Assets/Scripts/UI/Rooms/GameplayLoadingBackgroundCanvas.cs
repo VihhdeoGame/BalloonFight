@@ -13,7 +13,8 @@ public class GameplayLoadingBackgroundCanvas : MonoBehaviour
     }
     private void Update()
     {
-        GetPlayersReady();
+        if(PhotonNetwork.IsConnected)
+            GetPlayersReady();
     }
     private void GetPlayersReady()
     {

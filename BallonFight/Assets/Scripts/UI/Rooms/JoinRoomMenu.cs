@@ -8,6 +8,8 @@ using UnityEngine;
 public class JoinRoomMenu : MonoBehaviourPunCallbacks
 {
     [SerializeField]
+    private TMP_InputField nickNameInput;
+    [SerializeField]
     private TMP_InputField roomName;
     [SerializeField]
     private TMP_Text errorMessageText;
@@ -18,6 +20,10 @@ public class JoinRoomMenu : MonoBehaviourPunCallbacks
     }
     public void OnClick_JoinRoom()
     {
+        if(nickNameInput.text != "")
+        {
+            PhotonNetwork.NickName = nickNameInput.text;
+        }
         if(!PhotonNetwork.InLobby)
             PhotonNetwork.JoinLobby(GameManager.Lobby);
         PhotonNetwork.JoinRoom(roomName.text.ToUpper());

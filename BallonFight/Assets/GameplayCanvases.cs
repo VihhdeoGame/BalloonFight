@@ -10,6 +10,9 @@ public class GameplayCanvases : MonoBehaviour
     [SerializeField]
     private GameplayUICanvas gameplayUICanvas;
     public GameplayUICanvas GameplayUICanvas {get {return gameplayUICanvas; }}
+    [SerializeField]
+    private VictoryScreenCanvas victoryScreenCanvas;
+    public VictoryScreenCanvas VictoryScreenCanvas{get {return victoryScreenCanvas;}}
     private void Awake()
     {
        FirstInitialize();
@@ -18,5 +21,6 @@ public class GameplayCanvases : MonoBehaviour
     {
        gameplayUICanvas.FirstInitialize(this);
        backgroundCanvas.FirstInitialize(this);
+       victoryScreenCanvas.FirstInitialize(this);
     }
 }

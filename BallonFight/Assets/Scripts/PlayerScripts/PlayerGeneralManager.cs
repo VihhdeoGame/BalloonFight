@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class PlayerGeneralManager : MonoBehaviour
 {
+    private const byte SEND_SCORE_EVENT = 0;
+    AudioSource sfx;
     Vector3 spawnPoint;
     bool stuned;
     public int playerNumber;
@@ -13,15 +17,18 @@ public class PlayerGeneralManager : MonoBehaviour
     Animator animator; 
     Joystick joystick;
     PhotonView view;
+    public PhotonView View {get{ return view;}}
     PlayerLifeDisplay display;
     OthersLifeDisplay othersDisplay;
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] Animator stringAnimator;
     public int currentLives;
     public bool isReady = false;
+    ScoreManager scoreManager;
     // Start is called before the first frame update
     void Awake()
     {
+        sfx = GetComponent<AudioSource>(); 
         display = FindObjectOfType<PlayerLifeDisplay>();
         currentLives = GameManager.PlayerManager.playerMaxLives;
         animator = GetComponent<Animator>();
@@ -32,12 +39,15 @@ public class PlayerGeneralManager : MonoBehaviour
         playerNumber = view.ControllerActorNr;
         color = GameManager.PlayerManager.SetColor(playerNumber);
         sprite.color = color;
-        view.RPC("RPC_SetReady", RpcTarget.AllBuffered);
+        scoreManager = FindObjectOfType<ScoreManager>();
+        view.RPC("RPC_SetReady", RpcTarget.AllBuffered, true);
     }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
+        if(scoreManager == null)
+        {
+            scoreManager = FindObjectOfType<ScoreManager>();
+        }
         if(display == null)
         {
             display = FindObjectOfType<PlayerLifeDisplay>();
@@ -59,6 +69,10 @@ public class PlayerGeneralManager : MonoBehaviour
                 Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
                     joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
             }
+        if(scoreManager.ScoresReceived.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1 && isReady)
+            {
+                GetVictoryScreen();
+            }
     }
     void Move(float horizontal, float vertical)
     {
@@ -78,7 +92,7 @@ public class PlayerGeneralManager : MonoBehaviour
         transform.position = spawnPoint;
         body.velocity = Vector2.zero;
         body.angularVelocity = 0;
-        if(currentLives <= 0)
+        if(currentLives <= 0 && view.IsMine)
             Kill();
         else
         {
@@ -107,7 +121,11 @@ public class PlayerGeneralManager : MonoBehaviour
     }
     void Kill()
     {
-        gameObject.SetActive(false);
+        object[] datas = new object[] {playerNumber};
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient };
+        PhotonNetwork.RaiseEvent(SEND_SCORE_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
+        Debug.Log("sending from kill");
+        view.RPC("RPC_SetReady", RpcTarget.All,false);
     }
 
     [PunRPC]
@@ -122,8 +140,35 @@ public class PlayerGeneralManager : MonoBehaviour
         stringAnimator.enabled = false;
     }
     [PunRPC]
-    private void RPC_SetReady()
+    private void RPC_SetReady(bool _isReady)
     {
-        isReady = true;
+        isReady = _isReady;
+    }
+    void GetVictoryScreen()
+    {
+        object[] datas = new object[] {playerNumber};
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient };
+        PhotonNetwork.RaiseEvent(SEND_SCORE_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
+        Debug.Log("sending from victory");
+        view.RPC("RPC_SetReady", RpcTarget.All,false); 
+               
+    }
+    [PunRPC]
+    public void RPC_ResetValues()
+    {
+        gameObject.SetActive(true);
+        transform.position = spawnPoint;
+        body.velocity = Vector2.zero;
+        body.angularVelocity = 0;
+        currentLives = GameManager.PlayerManager.playerMaxLives;
+        animator.SetBool("Death", false);
+        if(view.IsMine)
+            display.UpdateHearts(currentLives);
+        else
+            othersDisplay.othersLives[playerNumber].UpdateHearts(currentLives);
+    }
+    public void PlaySFX()
+    {
+        sfx.Play();
     }
 }

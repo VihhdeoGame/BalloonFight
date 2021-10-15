@@ -13,7 +13,6 @@ public class PlayerLifeDisplay : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
         players = FindObjectsOfType<PlayerGeneralManager>();
-        Debug.Log(players.ToString());
         lifeArray = new List<GameObject>();
         DisplayHearts(players[PhotonNetwork.LocalPlayer.ActorNumber-1].currentLives);
     }
@@ -27,6 +26,14 @@ public class PlayerLifeDisplay : MonoBehaviourPunCallbacks
     }
     public void UpdateHearts(int lives)
     {
+        if(lives > currentLives)
+        {
+            for (int i = 0; i < lifeArray.Count; i++)
+            {
+                lifeArray[i].SetActive(true);
+                currentLives = lives;                
+            }
+        }
         if(currentLives > lives)
         {
             lifeArray[currentLives-1].SetActive(false);

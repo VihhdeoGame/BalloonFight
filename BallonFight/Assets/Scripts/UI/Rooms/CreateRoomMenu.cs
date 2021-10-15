@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine;
 
 //Class responsible to create rooms with random names
 public class CreateRoomMenu : MonoBehaviourPunCallbacks
 {
+    [SerializeField]
+    private TMP_InputField nickNameInput;
     private string roomName;
     private RoomCanvases roomCanvases;
     public void FirstInitialize(RoomCanvases _canvases)
@@ -16,6 +19,10 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
     }
     public void OnClick_CreateRoom()
     {
+        if(nickNameInput.text != "")
+        {
+            PhotonNetwork.NickName = nickNameInput.text;
+        }
         if(!PhotonNetwork.InLobby)
             PhotonNetwork.JoinLobby(GameManager.Lobby);
         RoomOptions _options = new RoomOptions();
