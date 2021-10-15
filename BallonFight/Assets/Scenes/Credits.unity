@@ -512,8 +512,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Gameplay Programmer:\nVictor do Rosario\n\nPixel Art: \nCaique Silva\n\nCTO:\n
-    Falme Streamless\n\n."
+  m_text: "Gameplay Programmer:\nVictor do Rosario\n\nPixel Art: \nCaique Silva\n\nCTO:\nFalme
+    Streamless\n\n."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 89c3122aa93545943baea8ae4b8f4c92, type: 2}
   m_sharedMaterial: {fileID: -2788333965706756733, guid: 89c3122aa93545943baea8ae4b8f4c92,
@@ -666,7 +666,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96

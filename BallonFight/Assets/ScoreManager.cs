@@ -26,11 +26,11 @@ public class ScoreManager : MonoBehaviourPunCallbacks,IOnEventCallback
     TMP_Text[] playersText;
     PlayerGeneralManager[] playerManagers;
     bool eventSent = false;
-    private void OnEnable()
+    private new void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);        
     }
-    private void OnDisable() 
+    private new void OnDisable() 
     {
         PhotonNetwork.RemoveCallbackTarget(this);        
     }
@@ -130,6 +130,7 @@ public class ScoreManager : MonoBehaviourPunCallbacks,IOnEventCallback
         {
             object[] datas = (object[])photonEvent.CustomData;
             int _score = (int)datas[0];
+            Debug.Log(string.Concat("Recebeu player: ",_score.ToString()));
             scoresReceived.Enqueue(_score);
         }
         if(photonEvent.Code == SEND_LEADERBOARD_EVENT)

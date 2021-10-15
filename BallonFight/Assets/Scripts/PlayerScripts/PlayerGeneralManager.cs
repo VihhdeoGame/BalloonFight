@@ -92,7 +92,7 @@ public class PlayerGeneralManager : MonoBehaviour
         transform.position = spawnPoint;
         body.velocity = Vector2.zero;
         body.angularVelocity = 0;
-        if(currentLives <= 0)
+        if(currentLives <= 0 && view.IsMine)
             Kill();
         else
         {
@@ -124,8 +124,8 @@ public class PlayerGeneralManager : MonoBehaviour
         object[] datas = new object[] {playerNumber};
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient };
         PhotonNetwork.RaiseEvent(SEND_SCORE_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
+        Debug.Log("sending from kill");
         view.RPC("RPC_SetReady", RpcTarget.All,false);
-        //gameObject.SetActive(false);
     }
 
     [PunRPC]
@@ -149,8 +149,8 @@ public class PlayerGeneralManager : MonoBehaviour
         object[] datas = new object[] {playerNumber};
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient };
         PhotonNetwork.RaiseEvent(SEND_SCORE_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
+        Debug.Log("sending from victory");
         view.RPC("RPC_SetReady", RpcTarget.All,false); 
-        //gameObject.SetActive(false);
                
     }
     [PunRPC]
