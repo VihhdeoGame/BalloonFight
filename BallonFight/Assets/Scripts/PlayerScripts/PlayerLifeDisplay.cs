@@ -9,9 +9,8 @@ public class PlayerLifeDisplay : MonoBehaviourPunCallbacks
     List<GameObject> lifeArray;
     PlayerGeneralManager[] players;
     int currentLives;
-    public override void OnEnable() 
+    private void Awake()
     {
-        base.OnEnable();
         players = FindObjectsOfType<PlayerGeneralManager>();
         lifeArray = new List<GameObject>();
         DisplayHearts(players[PhotonNetwork.LocalPlayer.ActorNumber-1].currentLives);

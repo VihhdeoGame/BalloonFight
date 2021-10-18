@@ -5,9 +5,8 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
-public class PlayerGeneralManager : MonoBehaviour
+public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
 {
-    private const byte SEND_SCORE_EVENT = 0;
     AudioSource sfx;
     Vector3 spawnPoint;
     bool stuned;
@@ -25,9 +24,12 @@ public class PlayerGeneralManager : MonoBehaviour
     public int currentLives;
     public bool isReady = false;
     ScoreManager scoreManager;
-    // Start is called before the first frame update
+    SpriteRenderer[] sprites;
+    Collider2D[] colliders;
     void Awake()
     {
+        colliders = GetComponentsInChildren<Collider2D>();
+        sprites = GetComponentsInChildren<SpriteRenderer>();
         sfx = GetComponent<AudioSource>(); 
         display = FindObjectOfType<PlayerLifeDisplay>();
         currentLives = GameManager.PlayerManager.playerMaxLives;
@@ -41,6 +43,14 @@ public class PlayerGeneralManager : MonoBehaviour
         sprite.color = color;
         scoreManager = FindObjectOfType<ScoreManager>();
         view.RPC("RPC_SetReady", RpcTarget.AllBuffered, true);
+    }
+    private void OnEnable()
+    {
+        PhotonNetwork.AddCallbackTarget(this);
+    }
+    private void OnDisable()
+    {
+        PhotonNetwork.RemoveCallbackTarget(this);
     }
     void FixedUpdate()
     {
@@ -69,7 +79,7 @@ public class PlayerGeneralManager : MonoBehaviour
                 Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
                     joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
             }
-        if(scoreManager.ScoresReceived.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1 && isReady)
+        if(scoreManager.ScoresReceived.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1 && isReady && display != null)
             {
                 GetVictoryScreen();
             }
@@ -123,19 +133,17 @@ public class PlayerGeneralManager : MonoBehaviour
     {
         object[] datas = new object[] {playerNumber};
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient };
-        PhotonNetwork.RaiseEvent(SEND_SCORE_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
+        PhotonNetwork.RaiseEvent(Const.SEND_SCORE_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
         Debug.Log("sending from kill");
         view.RPC("RPC_SetReady", RpcTarget.All,false);
+        DisableRender(false);
     }
 
     [PunRPC]
     private void RPC_SendDammage()
     {
         currentLives--;
-        if(view.IsMine)
-            display.UpdateHearts(currentLives);
-        else
-            othersDisplay.othersLives[playerNumber].UpdateHearts(currentLives);
+        UpdateHearts();
         animator.SetBool("Death", true);
         stringAnimator.enabled = false;
     }
@@ -144,31 +152,54 @@ public class PlayerGeneralManager : MonoBehaviour
     {
         isReady = _isReady;
     }
-    void GetVictoryScreen()
-    {
-        object[] datas = new object[] {playerNumber};
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient };
-        PhotonNetwork.RaiseEvent(SEND_SCORE_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
-        Debug.Log("sending from victory");
-        view.RPC("RPC_SetReady", RpcTarget.All,false); 
-               
-    }
     [PunRPC]
-    public void RPC_ResetValues()
+    private void UpdateHearts()
     {
-        gameObject.SetActive(true);
-        transform.position = spawnPoint;
-        body.velocity = Vector2.zero;
-        body.angularVelocity = 0;
-        currentLives = GameManager.PlayerManager.playerMaxLives;
-        animator.SetBool("Death", false);
         if(view.IsMine)
             display.UpdateHearts(currentLives);
         else
             othersDisplay.othersLives[playerNumber].UpdateHearts(currentLives);
     }
+    void GetVictoryScreen()
+    {
+        object[] datas = new object[] {playerNumber};
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient };
+        PhotonNetwork.RaiseEvent(Const.SEND_SCORE_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
+        Debug.Log("sending from victory");
+        view.RPC("RPC_SetReady", RpcTarget.All,false);
+        DisableRender(false);
+    }
+    public void ResetValues()
+    {
+        DisableRender(true);
+        view.RPC("RPC_SetReady", RpcTarget.All,true);
+        transform.position = spawnPoint;
+        body.velocity = Vector2.zero;
+        body.angularVelocity = 0;
+        currentLives = GameManager.PlayerManager.playerMaxLives;
+        animator.SetBool("Death", false);
+        UpdateHearts();
+    }
     public void PlaySFX()
     {
         sfx.Play();
+    }
+    void DisableRender(bool active)
+    {
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            sprites[i].enabled = active;            
+        }
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i].enabled = active;            
+        }
+    }
+    public void OnEvent(EventData photonEvent)
+    {
+        if(photonEvent.Code == Const.PLAY_AGAIN_EVENT)
+        {
+            ResetValues();
+        }
     }
 }

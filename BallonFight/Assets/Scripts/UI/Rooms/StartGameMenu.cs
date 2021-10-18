@@ -16,6 +16,9 @@ public class StartGameMenu : MonoBehaviourPunCallbacks
         view = GetComponent<PhotonView>();
         base.OnEnable();
         isMaster();
+        #if UNITY_EDITOR
+        countdownTime = 2;
+        #endif
     }
     private void isMaster(){ gameObject.SetActive(PhotonNetwork.IsMasterClient); }
     public void OnClick_StarGame()

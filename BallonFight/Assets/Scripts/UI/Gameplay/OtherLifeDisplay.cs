@@ -8,9 +8,8 @@ public class OtherLifeDisplay : MonoBehaviourPunCallbacks
     [SerializeField]GameObject lifePrefab;
     List<GameObject> lifeArray;
     int currentLives;
-    public override void OnEnable() 
+    private void Awake()
     {
-        base.OnEnable();
         lifeArray = new List<GameObject>();
     }
     public void DisplayHearts(int maxLives)
@@ -23,6 +22,14 @@ public class OtherLifeDisplay : MonoBehaviourPunCallbacks
     }
     public void UpdateHearts(int lives)
     {
+        if(lives > currentLives)
+        {
+            for (int i = 0; i < lifeArray.Count; i++)
+            {
+                lifeArray[i].SetActive(true);
+                currentLives = lives;                
+            }
+        }
         if(currentLives > lives)
         {
             lifeArray[currentLives-1].SetActive(false);

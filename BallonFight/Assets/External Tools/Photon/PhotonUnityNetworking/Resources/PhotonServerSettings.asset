@@ -46,6 +46,9 @@ MonoBehaviour:
   - RPC_SendScore
   - RPC_ResetValues
   - GetVictoryScreen
+  - ResetValues
+  - RPC_UpdateHearts
+  - UpdateHearts
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

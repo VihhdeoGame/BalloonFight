@@ -9,7 +9,7 @@ public class OthersLifeDisplay : MonoBehaviour
     OtherLifeDisplay prefab;
     PlayerGeneralManager[] players;
     public Dictionary<int, OtherLifeDisplay> othersLives = new Dictionary<int, OtherLifeDisplay>();
-    private void OnEnable()
+    private void Awake()
     {   
         players = FindObjectsOfType<PlayerGeneralManager>();
         for (int i = 0; i < players.Length; i++)
