@@ -13,23 +13,17 @@ public class ScoreManager : MonoBehaviourPunCallbacks,IOnEventCallback
     Fade fade;
     [SerializeField]
     GameplayCanvases canvases;
+    [SerializeField]
+    GameObject[] numbers, players;
+    [SerializeField]
+    TMP_Text[] playersText;
+    [SerializeField]
+    GameObject buttonIsReady, buttonLeaveRoom, playAgainButton;
+    Dictionary<int,bool> arePlayersReady = new Dictionary<int,bool>();
     Queue<int> scoresReceived = new Queue<int>();
     Stack<int> scores = new Stack<int>();
     public Queue<int> ScoresReceived{get{return scoresReceived;}}
-    [SerializeField]
-    GameObject[] numbers;
-    [SerializeField]
-    GameObject[] players;
-    [SerializeField]
-    TMP_Text[] playersText;
     bool eventSent = false;
-    [SerializeField]
-    GameObject buttonIsReady;
-    [SerializeField]
-    GameObject buttonLeaveRoom;
-    [SerializeField]
-    GameObject playAgainButton;
-    Dictionary<int,bool> arePlayersReady = new Dictionary<int,bool>();
     private new void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);        
@@ -86,6 +80,11 @@ public class ScoreManager : MonoBehaviourPunCallbacks,IOnEventCallback
         PhotonNetwork.RaiseEvent(Const.PLAY_AGAIN_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
         arePlayersReady.Clear();        
     }
+    public void OnClick_LeaveRoom()
+    {
+        fade.FadeIn();
+        PhotonNetwork.Disconnect();
+    }
     bool CheckIsReady()
     {
         return(arePlayersReady.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1);
@@ -102,11 +101,6 @@ public class ScoreManager : MonoBehaviourPunCallbacks,IOnEventCallback
         }
         canvases.VictoryScreenCanvas.Show();
         canvases.GameplayUICanvas.Hide();
-    }
-    public void OnClick_LeaveRoom()
-    {
-        fade.FadeIn();
-        PhotonNetwork.Disconnect();
     }
     public override void OnDisconnected(DisconnectCause cause)
     {

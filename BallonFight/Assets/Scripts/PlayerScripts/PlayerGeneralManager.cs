@@ -7,25 +7,32 @@ using UnityEngine;
 
 public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
 {
+    [SerializeField] SpriteRenderer sprite;
+    [SerializeField] Animator stringAnimator;
+    public Rigidbody2D body;
+    public Color color;    
+    public int playerNumber;
+    public int currentLives;
+    public bool isReady = false;
+    bool stuned;
     AudioSource sfx;
     Vector3 spawnPoint;
-    bool stuned;
-    public int playerNumber;
-    public Rigidbody2D body;
-    public Color color;
     Animator animator; 
     Joystick joystick;
     PhotonView view;
-    public PhotonView View {get{ return view;}}
     PlayerLifeDisplay display;
     OthersLifeDisplay othersDisplay;
-    [SerializeField] SpriteRenderer sprite;
-    [SerializeField] Animator stringAnimator;
-    public int currentLives;
-    public bool isReady = false;
     ScoreManager scoreManager;
     SpriteRenderer[] sprites;
     Collider2D[] colliders;
+    private void OnEnable()
+    {
+        PhotonNetwork.AddCallbackTarget(this);
+    }
+    private void OnDisable()
+    {
+        PhotonNetwork.RemoveCallbackTarget(this);
+    }
     void Awake()
     {
         colliders = GetComponentsInChildren<Collider2D>();
@@ -43,14 +50,6 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         sprite.color = color;
         scoreManager = FindObjectOfType<ScoreManager>();
         view.RPC("RPC_SetReady", RpcTarget.AllBuffered, true);
-    }
-    private void OnEnable()
-    {
-        PhotonNetwork.AddCallbackTarget(this);
-    }
-    private void OnDisable()
-    {
-        PhotonNetwork.RemoveCallbackTarget(this);
     }
     void FixedUpdate()
     {
@@ -138,28 +137,6 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         view.RPC("RPC_SetReady", RpcTarget.All,false);
         DisableRender(false);
     }
-
-    [PunRPC]
-    private void RPC_SendDammage()
-    {
-        currentLives--;
-        UpdateHearts();
-        animator.SetBool("Death", true);
-        stringAnimator.enabled = false;
-    }
-    [PunRPC]
-    private void RPC_SetReady(bool _isReady)
-    {
-        isReady = _isReady;
-    }
-    [PunRPC]
-    private void UpdateHearts()
-    {
-        if(view.IsMine)
-            display.UpdateHearts(currentLives);
-        else
-            othersDisplay.othersLives[playerNumber].UpdateHearts(currentLives);
-    }
     void GetVictoryScreen()
     {
         object[] datas = new object[] {playerNumber};
@@ -179,7 +156,15 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         currentLives = GameManager.PlayerManager.playerMaxLives;
         animator.SetBool("Death", false);
         UpdateHearts();
+    }    
+    private void UpdateHearts()
+    {
+        if(view.IsMine)
+            display.UpdateHearts(currentLives);
+        else
+            othersDisplay.othersLives[playerNumber].UpdateHearts(currentLives);
     }
+
     public void PlaySFX()
     {
         sfx.Play();
@@ -194,6 +179,19 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         {
             colliders[i].enabled = active;            
         }
+    }
+    [PunRPC]
+    private void RPC_SendDammage()
+    {
+        currentLives--;
+        UpdateHearts();
+        animator.SetBool("Death", true);
+        stringAnimator.enabled = false;
+    }
+    [PunRPC]
+    private void RPC_SetReady(bool _isReady)
+    {
+        isReady = _isReady;
     }
     public void OnEvent(EventData photonEvent)
     {
