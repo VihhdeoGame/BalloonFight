@@ -97,7 +97,7 @@ public class ScoreManager : MonoBehaviourPunCallbacks,IOnEventCallback
             players[i].SetActive(true);
             int _score = scores.Pop();
             playersText[i].text = PhotonNetwork.CurrentRoom.GetPlayer(_score).NickName;
-            players[i].GetComponent<Image>().color = GameManager.PlayerManager.SetColor(_score);
+            players[i].GetComponentInChildren<Image>().color = GameManager.PlayerManager.SetColor(_score);
         }
         canvases.VictoryScreenCanvas.Show();
         canvases.GameplayUICanvas.Hide();

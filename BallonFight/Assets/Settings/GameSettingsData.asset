@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1621a0344abd9fb4f8cd5cdc9a8e6ed6, type: 3}
   m_Name: GameSettingsData
   m_EditorClassIdentifier: 
-  gameVersion: 0.0.0
-  nickName: Name
+  nickName: 'Player '

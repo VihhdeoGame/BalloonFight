@@ -9,6 +9,7 @@ public class RotateWeapons : MonoBehaviour
     RotateButtons buttons;
     [SerializeField]Transform sword;
     [SerializeField]Transform shield;
+    [SerializeField]PlayerGeneralManager parent;
     private void Awake() 
     {
         view = GetComponentInParent<PhotonView>();
@@ -22,7 +23,7 @@ public class RotateWeapons : MonoBehaviour
             buttons = FindObjectOfType<RotateButtons>();
         }
         else
-            if(view.IsMine)
+            if(view.IsMine && !parent.stuned)
             {
                 if(Input.GetKey(KeyCode.E)){ Rotate(true);}        
                 if(Input.GetKey(KeyCode.Q)){ Rotate(false);}

@@ -18,7 +18,7 @@ public class OthersLifeDisplay : MonoBehaviour
             {
                 OtherLifeDisplay _other = Instantiate(prefab,transform);
                 othersLives.Add(players[i].playerNumber, _other);
-                othersLives[players[i].playerNumber].DisplayHearts(players[i].currentLives);
+                othersLives[players[i].playerNumber].DisplayHearts(players[i].currentLives,players[i].playerNumber);
             }
         }
     }

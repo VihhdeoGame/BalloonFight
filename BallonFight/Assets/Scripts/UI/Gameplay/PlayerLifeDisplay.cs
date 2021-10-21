@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerLifeDisplay : MonoBehaviourPunCallbacks
 {
@@ -20,6 +21,7 @@ public class PlayerLifeDisplay : MonoBehaviourPunCallbacks
         for (int i = 0; i < maxLives; i++)
         {
             lifeArray.Add(Instantiate(lifePrefab,transform));
+            lifeArray[i].GetComponent<Image>().color = GameManager.PlayerManager.playerColors[PhotonNetwork.LocalPlayer.ActorNumber-1];
         }
         currentLives = maxLives;
     }

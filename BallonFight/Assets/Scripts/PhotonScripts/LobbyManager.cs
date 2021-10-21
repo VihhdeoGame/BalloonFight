@@ -55,6 +55,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if(!PhotonNetwork.IsConnected)
         {
             Debug.Log("Connecting to Server...");
+            PhotonNetwork.SendRate = 240;
+            PhotonNetwork.SerializationRate = 240;
             PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.NickName = GameManager.GameSettings.NickName;
             PhotonNetwork.GameVersion = GameManager.GameSettings.GameVersion;

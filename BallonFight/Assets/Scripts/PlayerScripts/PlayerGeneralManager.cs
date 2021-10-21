@@ -9,12 +9,13 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
 {
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] Animator stringAnimator;
+    [SerializeField]Transform weapons;
     public Rigidbody2D body;
     public Color color;    
     public int playerNumber;
     public int currentLives;
     public bool isReady = false;
-    bool stuned;
+    public bool stuned;
     AudioSource sfx;
     Vector3 spawnPoint;
     Animator animator; 
@@ -101,6 +102,7 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         transform.position = spawnPoint;
         body.velocity = Vector2.zero;
         body.angularVelocity = 0;
+        weapons.rotation = Quaternion.identity;
         if(currentLives <= 0 && view.IsMine)
             Kill();
         else
@@ -126,7 +128,8 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
     }
     public void Damage()
     {
-        view.RPC("RPC_SendDammage", RpcTarget.All);
+        if(!view.IsMine && !animator.GetBool("Death"))
+            view.RPC("RPC_SendDammage", RpcTarget.All);
     }
     void Kill()
     {

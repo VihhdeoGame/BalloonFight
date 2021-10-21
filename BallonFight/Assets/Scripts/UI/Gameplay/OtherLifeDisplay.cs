@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OtherLifeDisplay : MonoBehaviourPunCallbacks
 {
@@ -12,11 +13,12 @@ public class OtherLifeDisplay : MonoBehaviourPunCallbacks
     {
         lifeArray = new List<GameObject>();
     }
-    public void DisplayHearts(int maxLives)
+    public void DisplayHearts(int maxLives, int playerNumber)
     {
         for (int i = 0; i < maxLives; i++)
         {
             lifeArray.Add(Instantiate(lifePrefab,transform));
+            lifeArray[i].GetComponent<Image>().color = GameManager.PlayerManager.playerColors[playerNumber-1];
         }
         currentLives = maxLives;
     }

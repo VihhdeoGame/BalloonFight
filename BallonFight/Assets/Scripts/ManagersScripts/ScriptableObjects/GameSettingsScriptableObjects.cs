@@ -5,11 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameSettingsData", menuName = "ScriptableObjects/GameSettingsData")]
 public class GameSettingsScriptableObjects : ScriptableObject
 {
-    [SerializeField]
     private string gameVersion = "0.0.0";
-    public string GameVersion { get { return gameVersion; } }
+    public string GameVersion { get { return gameVersion; } set { this.gameVersion = value;} }
     [SerializeField]
-    private string nickName = "Player ";
+    private string nickName;
     public string NickName 
     {
         get 

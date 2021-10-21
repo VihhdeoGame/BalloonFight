@@ -103,11 +103,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1123994269384786982}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 268bc00cfbfc1a94ab0af2396c959a22, type: 3}
+  m_Script: {fileID: 11500000, guid: 920ccfa68aebcb94c84f78fad1c76e9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 7405186303165624952}
-  textBox: {fileID: 1016686287495062806}
 --- !u!1 &3998179853861108361
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,10 +202,11 @@ GameObject:
   - component: {fileID: 8186914770279193884}
   - component: {fileID: 6813687492542513093}
   - component: {fileID: 2792725844922418557}
-  - component: {fileID: 5575289687949882255}
-  - component: {fileID: 6335120766274371594}
+  - component: {fileID: 7480637582823397159}
   - component: {fileID: 3012783387317393385}
+  - component: {fileID: 6335120766274371594}
   - component: {fileID: 548868737808010270}
+  - component: {fileID: 1813394108810761367}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -243,13 +243,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76eafa35b76960a4c89d6138f1255792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 0
-  body: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
   sprite: {fileID: 4275836948187937667}
   stringAnimator: {fileID: 3619264079178308982}
+  weapons: {fileID: 134668058613088624}
+  body: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  playerNumber: 0
   currentLives: 0
   isReady: 0
+  stuned: 0
 --- !u!50 &8186914770279193884
 Rigidbody2D:
   serializedVersion: 4
@@ -306,13 +308,14 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 5575289687949882255}
+  - {fileID: 7480637582823397159}
   - {fileID: 3012783387317393385}
+  - {fileID: 1813394108810761367}
   - {fileID: 4613503106929218992}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &5575289687949882255
+--- !u!114 &7480637582823397159
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -321,49 +324,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4483767006777177041}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e7cb724808c322458aa4d15f5035fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PositionModel:
-    SynchronizeEnabled: 1
-    TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 1
-    InterpolateOption: 2
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
-    ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
-    ExtrapolateNumberOfStoredPositions: 1
-  m_RotationModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 1
-    InterpolateRotateTowardsSpeed: 360
-    InterpolateLerpSpeed: 5
-  m_ScaleModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 0
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 0
---- !u!95 &6335120766274371594
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4483767006777177041}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 08da319b07ea3ff4b848b88c1a4b5dce, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 1
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 1
 --- !u!114 &3012783387317393385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,14 +353,33 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: Vertical
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Death
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Stunned
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
+--- !u!95 &6335120766274371594
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4483767006777177041}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 08da319b07ea3ff4b848b88c1a4b5dce, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 1
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!82 &548868737808010270
 AudioSource:
   m_ObjectHideFlags: 0
@@ -490,6 +476,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1813394108810761367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4483767006777177041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 0
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &5926332571162195215
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,6 +754,11 @@ PrefabInstance:
     - target: {fileID: 1604966734217906932, guid: 89465cdcd023d3845bda235c62c17a02,
         type: 3}
       propertyPath: player
+      value: 
+      objectReference: {fileID: 7405186303165624952}
+    - target: {fileID: 2136045952413478507, guid: 89465cdcd023d3845bda235c62c17a02,
+        type: 3}
+      propertyPath: parent
       value: 
       objectReference: {fileID: 7405186303165624952}
     - target: {fileID: 4278688964526316689, guid: 89465cdcd023d3845bda235c62c17a02,

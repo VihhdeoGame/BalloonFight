@@ -378,7 +378,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Click aqui para voltar ao menu Inicial.
+  m_text: Click here to go back to main menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 89c3122aa93545943baea8ae4b8f4c92, type: 2}
   m_sharedMaterial: {fileID: -2788333965706756733, guid: 89c3122aa93545943baea8ae4b8f4c92,
@@ -406,7 +406,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.45
+  m_fontSize: 72
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

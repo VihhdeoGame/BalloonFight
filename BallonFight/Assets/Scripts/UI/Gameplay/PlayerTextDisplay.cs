@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,9 +6,10 @@ using UnityEngine;
 public class PlayerTextDisplay : MonoBehaviour
 {
     [SerializeField]PlayerGeneralManager parent;
-    [SerializeField]TextMesh textBox;
+    TextMesh textBox;
     void Awake() 
     {
+        textBox = GetComponent<TextMesh>();
         textBox.text = string.Concat("P",parent.playerNumber);
     }
     
