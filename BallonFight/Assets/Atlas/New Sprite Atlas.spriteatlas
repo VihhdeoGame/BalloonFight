@@ -43,7 +43,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 41514f37c4086fc4cadcb23e38532369, type: 3}
-    totalSpriteSurfaceArea: 2670366
+    totalSpriteSurfaceArea: 2671390
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -88,6 +88,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 5f03460b98a1f3441b4d69b65d20b0c8, type: 3}
   - {fileID: 21300000, guid: b9edf88cb8f3012499d73510c5dbd7fd, type: 3}
   - {fileID: 21300000, guid: 31eddf6d48fc3a642a9f9c785c9a1131, type: 3}
+  - {fileID: 21300000, guid: 103bfdad2b73f3c46ade5c43b09ba9a1, type: 3}
   - {fileID: 21300000, guid: fb5a684e2f878a544aaf6857d32d05af, type: 3}
   - {fileID: 21300000, guid: 6fa7fedea431aec4886d09c40dae63e7, type: 3}
   - {fileID: 21300000, guid: 7811274fd604a5343900c3929fb49c6d, type: 3}
@@ -133,6 +134,7 @@ SpriteAtlas:
   - Player_Arrrow
   - Cloud-4-200_
   - Reflex-Box-200%
+  - Arrow
   - Balloon-Ex-2-200_
   - Balloon-Ex-5-200%
   - Gladius-200_

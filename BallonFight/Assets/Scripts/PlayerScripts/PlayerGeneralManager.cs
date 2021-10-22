@@ -16,6 +16,7 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
     public int currentLives;
     public bool isReady = false;
     public bool stuned;
+    public bool respawnCooldown = false;
     AudioSource sfx;
     Vector3 spawnPoint;
     Animator animator; 
@@ -66,19 +67,24 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         {
             othersDisplay = FindObjectOfType<OthersLifeDisplay>();
         }
+#if UNITY_ANDROID
         if(joystick == null)
         {
             joystick = FindObjectOfType<Joystick>();
         }
         else
             if(view.IsMine && !stuned)
+            {   
+                Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
+                     joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
+            }
+#elif UNITY_STANDALONE || UNITY_EDITOR
+        if(view.IsMine && !stuned)
             {
                 Move(Input.GetAxisRaw("Horizontal")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
-                    Input.GetAxisRaw("Vertical")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);        
-                
-                Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
-                    joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
+                     Input.GetAxisRaw("Vertical")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);
             }
+#endif
         if(scoreManager.ScoresReceived.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1 && isReady && display != null)
             {
                 GetVictoryScreen();
@@ -109,26 +115,37 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         {
             animator.SetBool("Death", false);
             stringAnimator.enabled = true;
+            stuned = false;
+            if(view.IsMine)
+                animator.SetBool("Stunned", false);
+            StartCoroutine(RespawnCooldown());
         }    
     }
     public IEnumerator Stun(PlayerGeneralManager player)
     {
         stuned = true;
-        animator.SetBool("Stunned", true);
-        Vector2 knockbackDirection = (body.velocity*-1) + player.body.velocity*Time.fixedDeltaTime;
-        body.AddForce(knockbackDirection, ForceMode2D.Impulse);
+        if(view.IsMine)
+            animator.SetBool("Stunned", true);
+        GetKnockback(player);
         yield return new WaitForSeconds(3);
-        animator.SetBool("Stunned", false);
+        if(view.IsMine)
+            animator.SetBool("Stunned", false);
         stuned = false;
+    }
+    public IEnumerator RespawnCooldown()
+    {
+        respawnCooldown = true;
+        yield return new WaitForSeconds(3);
+        respawnCooldown = false;
     }
     public void GetKnockback(PlayerGeneralManager player)
     {
-        Vector2 knockbackDirection = (body.velocity + player.body.velocity*Time.fixedDeltaTime)*-1;
+        Vector2 knockbackDirection = (body.velocity*-1) + player.body.velocity*Time.fixedDeltaTime;
         body.AddForce(knockbackDirection,ForceMode2D.Impulse);
     }
     public void Damage()
     {
-        if(!view.IsMine && !animator.GetBool("Death"))
+        if(view.IsMine && !respawnCooldown)
             view.RPC("RPC_SendDammage", RpcTarget.All);
     }
     void Kill()
@@ -138,7 +155,7 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         PhotonNetwork.RaiseEvent(Const.SEND_SCORE_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
         Debug.Log("sending from kill");
         view.RPC("RPC_SetReady", RpcTarget.All,false);
-        DisableRender(false);
+        SetRender(false);
     }
     void GetVictoryScreen()
     {
@@ -147,16 +164,17 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         PhotonNetwork.RaiseEvent(Const.SEND_SCORE_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
         Debug.Log("sending from victory");
         view.RPC("RPC_SetReady", RpcTarget.All,false);
-        DisableRender(false);
+        SetRender(false);
     }
     public void ResetValues()
     {
-        DisableRender(true);
+        SetRender(true);
         view.RPC("RPC_SetReady", RpcTarget.All,true);
         transform.position = spawnPoint;
         body.velocity = Vector2.zero;
         body.angularVelocity = 0;
         currentLives = GameManager.PlayerManager.playerMaxLives;
+        if(view.IsMine)
         animator.SetBool("Death", false);
         UpdateHearts();
     }    
@@ -172,7 +190,7 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
     {
         sfx.Play();
     }
-    void DisableRender(bool active)
+    void SetRender(bool active)
     {
         for (int i = 0; i < sprites.Length; i++)
         {
@@ -188,7 +206,11 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
     {
         currentLives--;
         UpdateHearts();
-        animator.SetBool("Death", true);
+        if(view.IsMine)
+        {
+            animator.SetBool("Stunned", false);
+            animator.SetBool("Death", true);
+        }
         stringAnimator.enabled = false;
     }
     [PunRPC]

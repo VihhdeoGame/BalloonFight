@@ -5,7 +5,6 @@ using UnityEngine;
 public class WeaponCollision : MonoBehaviour
 { 
     public PlayerGeneralManager player;
-    bool colliding = false;
     private void Start()
     {
         player = GetComponentInParent<PlayerGeneralManager>();        
@@ -14,45 +13,32 @@ public class WeaponCollision : MonoBehaviour
     {
         if(tag.Equals("Sword"))
         {
-            if(other.CompareTag("Player") && !colliding)
+            if(other.CompareTag("Player"))
             {
-                colliding = true;
                 other.GetComponent<PlayerGeneralManager>().Damage();
-                player.ResetPosition();
-                colliding = false;
             }
-            if(other.CompareTag("Shield") && !colliding)
+            if(other.CompareTag("Shield"))
             {
-                colliding = true;
-                StartCoroutine(player.Stun(other.GetComponent<WeaponCollision>().player));
-                colliding = false;            
+                StartCoroutine(player.Stun(other.GetComponent<WeaponCollision>().player));           
             }
-            if(other.CompareTag("Sword") && !colliding)
+            if(other.CompareTag("Sword"))
             {
-                colliding = true;
-                player.GetKnockback(other.GetComponent<WeaponCollision>().player);
-                colliding = false;            
+                player.GetKnockback(other.GetComponent<WeaponCollision>().player);          
             }
         }
         if(tag.Equals("Shield"))
         {
-            if(other.CompareTag("Sword") && !colliding)
+            if(other.CompareTag("Sword"))
             {
-                colliding = true;
-                player.GetKnockback(other.GetComponent<WeaponCollision>().player);
-                colliding = false;            
+                player.GetKnockback(other.GetComponent<WeaponCollision>().player);            
             }
-            if(other.CompareTag("Shield") && !colliding)
+            else if(other.CompareTag("Shield"))
             {
-                colliding = true;
-                player.GetKnockback(other.GetComponent<WeaponCollision>().player);
-                colliding = false;            
+                player.GetKnockback(other.GetComponent<WeaponCollision>().player);            
             }
-            if(other.CompareTag("Player") && !colliding)
+            else if(other.CompareTag("Player"))
             {
-                colliding = true;
-                player.GetKnockback(other.GetComponent<PlayerGeneralManager>());
-                colliding = false;            
+                player.GetKnockback(other.GetComponent<PlayerGeneralManager>());            
             }
         }        
     }

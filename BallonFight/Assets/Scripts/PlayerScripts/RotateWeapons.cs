@@ -18,6 +18,7 @@ public class RotateWeapons : MonoBehaviour
     }
     private void LateUpdate()
     {
+#if UNITY_ANDROID
         if(buttons == null)
         {
             buttons = FindObjectOfType<RotateButtons>();
@@ -25,12 +26,13 @@ public class RotateWeapons : MonoBehaviour
         else
             if(view.IsMine && !parent.stuned)
             {
-                if(Input.GetKey(KeyCode.E)){ Rotate(true);}        
-                if(Input.GetKey(KeyCode.Q)){ Rotate(false);}
-
                 if(buttons.isRotatingLeft()) { Rotate(false);}
                 if(buttons.isRotatingRight()){ Rotate(true);}
             }
+#elif UNITY_STANDALONE || UNITY_EDITOR
+        if(Input.GetKey(KeyCode.E)){ Rotate(true);}        
+        if(Input.GetKey(KeyCode.Q)){ Rotate(false);}
+#endif
     }
 
     void SetInitialPosition()

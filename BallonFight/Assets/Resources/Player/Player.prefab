@@ -252,6 +252,7 @@ MonoBehaviour:
   currentLives: 0
   isReady: 0
   stuned: 0
+  respawnCooldown: 0
 --- !u!50 &8186914770279193884
 Rigidbody2D:
   serializedVersion: 4
@@ -835,6 +836,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Weapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062782045568801975, guid: 89465cdcd023d3845bda235c62c17a02,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89465cdcd023d3845bda235c62c17a02, type: 3}
