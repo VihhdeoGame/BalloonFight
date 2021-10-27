@@ -30,6 +30,11 @@ public class Fade : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         GameManager.SceneManager.LoadScene(_scene);
     }
+    IEnumerator WaitforQuit()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Application.Quit();
+    }
     public void FadeInAndLoadScene(string _scene)
     {
         FadeIn();
@@ -39,5 +44,10 @@ public class Fade : MonoBehaviour
     {
         FadeIn();
         StartCoroutine(WaitforSceneChange(_scene));
+    }
+    public void FadeInAndQuitApplication()
+    {
+        FadeIn();
+        StartCoroutine(WaitforQuit());
     }
 }

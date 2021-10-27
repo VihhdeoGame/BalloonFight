@@ -26,7 +26,10 @@ public class JoinRoomMenu : MonoBehaviourPunCallbacks
         }
         if(!PhotonNetwork.InLobby)
             PhotonNetwork.JoinLobby(GameManager.Lobby);
-        PhotonNetwork.JoinRoom(roomName.text.ToUpper());
+        if(!roomName.text.Equals(""))
+            PhotonNetwork.JoinRoom(roomName.text.ToUpper());
+        else
+            errorMessageText.text = string.Concat("Enter room code or create a new room!");
     }
 
     public override void OnJoinedRoom()

@@ -10,6 +10,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private Dictionary<string, RoomInfo> cachedRoomList = new Dictionary<string, RoomInfo>();
     public Dictionary<string, RoomInfo> CachedRoomList {get {return cachedRoomList; } }
     private RoomCanvases roomCanvases;
+    private float ping; 
     public void FirstInitialize(RoomCanvases _canvases)
     {
         roomCanvases = _canvases;
@@ -55,8 +56,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if(!PhotonNetwork.IsConnected)
         {
             Debug.Log("Connecting to Server...");
-            PhotonNetwork.SendRate = 240;
-            PhotonNetwork.SerializationRate = 240;
+            PhotonNetwork.SendRate = 30;
+            PhotonNetwork.SerializationRate = 10;
             PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.NickName = GameManager.GameSettings.NickName;
             PhotonNetwork.GameVersion = GameManager.GameSettings.GameVersion;

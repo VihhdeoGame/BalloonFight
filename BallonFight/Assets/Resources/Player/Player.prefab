@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 3012783387317393385}
   - component: {fileID: 6335120766274371594}
   - component: {fileID: 548868737808010270}
-  - component: {fileID: 1813394108810761367}
+  - component: {fileID: 1027929783570997022}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -250,6 +250,7 @@ MonoBehaviour:
   color: {r: 0, g: 0, b: 0, a: 0}
   playerNumber: 0
   currentLives: 0
+  isDead: 0
   isReady: 0
   stuned: 0
   respawnCooldown: 0
@@ -305,13 +306,12 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 2
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
   - {fileID: 7480637582823397159}
   - {fileID: 3012783387317393385}
-  - {fileID: 1813394108810761367}
   - {fileID: 4613503106929218992}
   sceneViewId: 0
   InstantiationId: 0
@@ -329,9 +329,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 1
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 1
+  m_TeleportIfDistanceGreaterThan: 10
 --- !u!114 &3012783387317393385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,19 +348,19 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 1
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Horizontal
   - Type: 1
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Vertical
   - Type: 9
     SynchronizeType: 2
     Name: Death
   - Type: 4
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Stunned
   m_SynchronizeLayers:
-  - SynchronizeType: 1
+  - SynchronizeType: 2
     LayerIndex: 0
 --- !u!95 &6335120766274371594
 Animator:
@@ -477,7 +477,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1813394108810761367
+--- !u!114 &1027929783570997022
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -486,13 +486,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4483767006777177041}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: a1f06a6d689c75b4ca8fe36f26cc1bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 0
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
+  player: {fileID: 7405186303165624952}
 --- !u!1 &5926332571162195215
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,6 +838,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512769416522051409, guid: 89465cdcd023d3845bda235c62c17a02,
+        type: 3}
+      propertyPath: Synchronization
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512769416522051409, guid: 89465cdcd023d3845bda235c62c17a02,
+        type: 3}
+      propertyPath: observableSearch
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89465cdcd023d3845bda235c62c17a02, type: 3}

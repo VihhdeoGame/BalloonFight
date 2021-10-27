@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 //Class used to create a sprite to display the player number
 public class PlayerTextDisplay : MonoBehaviour
@@ -10,7 +11,7 @@ public class PlayerTextDisplay : MonoBehaviour
     void Awake() 
     {
         textBox = GetComponent<TextMesh>();
-        textBox.text = string.Concat("P",parent.playerNumber);
+        textBox.text = PhotonNetwork.CurrentRoom.Players[parent.playerNumber].NickName.ToString().Substring(0,3);
     }
     
 }

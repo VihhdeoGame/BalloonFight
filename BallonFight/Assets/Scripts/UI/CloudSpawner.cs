@@ -15,7 +15,7 @@ public class CloudSpawner : MonoBehaviour
         for (int i = 0; i < initialClouds; i++)
         {
             int prefabIndex = Random.Range(0,4);
-            float randomX = Random.Range(-960,960); 
+            float randomX = Random.Range(-1500,1500); 
             float randomY = Random.Range(-540,540);
             Vector3 instancePosition = new Vector3(randomX,randomY,0);
             clouds.Add(Instantiate(cloudsPrefabs[prefabIndex],transform,false));
@@ -32,7 +32,7 @@ public class CloudSpawner : MonoBehaviour
         for (int i = 0; i < clouds.Count; i++)
         {
             clouds[i].transform.Translate(randomVelocity[i]*Time.deltaTime,0,0,Space.Self);
-            if(clouds[i].transform.localPosition.x < -1500)
+            if(clouds[i].transform.localPosition.x < -3000)
             {
                 Destroy(clouds[i]);
                 clouds.RemoveAt(i);
@@ -49,7 +49,7 @@ public class CloudSpawner : MonoBehaviour
         int prefabIndex = Random.Range(0,4);
         float randomY = Random.Range(-540,540);
         float localScale = Random.Range(0.1f,0.3f);
-        Vector3 instancePosition = new Vector3(1500,randomY,0);
+        Vector3 instancePosition = new Vector3(3000,randomY,0);
         clouds.Add(Instantiate(cloudsPrefabs[prefabIndex],transform,false));
         clouds[clouds.Count-1].transform.localScale = new Vector3(localScale,localScale,1);
         clouds[clouds.Count-1].transform.localPosition = instancePosition;

@@ -14,9 +14,12 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
     public Color color;    
     public int playerNumber;
     public int currentLives;
+    public bool isDead = false;
     public bool isReady = false;
     public bool stuned;
     public bool respawnCooldown = false;
+    float blinkFrames = -10;
+    bool isBlinking;
     AudioSource sfx;
     Vector3 spawnPoint;
     Animator animator; 
@@ -53,7 +56,7 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         scoreManager = FindObjectOfType<ScoreManager>();
         view.RPC("RPC_SetReady", RpcTarget.AllBuffered, true);
     }
-    void FixedUpdate()
+    void Update()
     {
         if(scoreManager == null)
         {
@@ -66,29 +69,54 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         if(othersDisplay == null)
         {
             othersDisplay = FindObjectOfType<OthersLifeDisplay>();
+        }   
+        if(respawnCooldown && isBlinking && blinkFrames < 0)
+        {
+            blinkFrames += 1;
+            sprite.color = new Color(sprite.color.r,sprite.color.g,sprite.color.b,0);
+            Debug.Log($"Sprite Color is isNotBlinking {sprite.color.a}");
+            if(blinkFrames >= 0){blinkFrames = 10;}
         }
-#if UNITY_ANDROID
+        else if(respawnCooldown && isBlinking && blinkFrames > 0)
+        {
+            blinkFrames -= 1;
+            sprite.color = new Color(sprite.color.r,sprite.color.g,sprite.color.b,1);
+            Debug.Log($"Sprite Color is isBlinking {sprite.color.a}"); 
+            if(blinkFrames <= 0){blinkFrames = -10;}
+        }
+        else if(!respawnCooldown && isBlinking)
+        {
+            sprite.color = new Color(sprite.color.r,sprite.color.g,sprite.color.b,1f);
+            Debug.Log($"Sprite Color NotRespawn {sprite.color.a}");
+            isBlinking = false;
+            blinkFrames = -10;
+        }
+        Debug.Log($"Sprite Color FinishUpdate {sprite.color.a}");
+        if(scoreManager.ScoresReceived.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1 && isReady && display != null)
+            {
+                GetVictoryScreen();
+            }
+    }
+    void FixedUpdate()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
         if(joystick == null)
         {
             joystick = FindObjectOfType<Joystick>();
         }
         else
-            if(view.IsMine && !stuned)
+            if(view.IsMine && !stuned && !isDead)
             {   
                 Move(joystick.Horizontal*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
                      joystick.Vertical*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);       
             }
 #elif UNITY_STANDALONE || UNITY_EDITOR
-        if(view.IsMine && !stuned)
+        if(view.IsMine && !stuned && !isDead)
             {
                 Move(Input.GetAxisRaw("Horizontal")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime,
                      Input.GetAxisRaw("Vertical")*GameManager.PlayerManager.playerAcceleration*Time.fixedDeltaTime);
             }
 #endif
-        if(scoreManager.ScoresReceived.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1 && isReady && display != null)
-            {
-                GetVictoryScreen();
-            }
     }
     void Move(float horizontal, float vertical)
     {
@@ -113,11 +141,14 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
             Kill();
         else
         {
-            animator.SetBool("Death", false);
+            if(view.IsMine)
+            {
+                animator.SetBool("Death", false);
+                animator.SetBool("Stunned", false);
+            }
+            isDead = false;
             stringAnimator.enabled = true;
             stuned = false;
-            if(view.IsMine)
-                animator.SetBool("Stunned", false);
             StartCoroutine(RespawnCooldown());
         }    
     }
@@ -135,6 +166,7 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
     public IEnumerator RespawnCooldown()
     {
         respawnCooldown = true;
+        isBlinking = true;
         yield return new WaitForSeconds(3);
         respawnCooldown = false;
     }
@@ -175,7 +207,8 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         body.angularVelocity = 0;
         currentLives = GameManager.PlayerManager.playerMaxLives;
         if(view.IsMine)
-        animator.SetBool("Death", false);
+            animator.SetBool("Death", false);
+        isDead = false;
         UpdateHearts();
     }    
     private void UpdateHearts()
@@ -211,6 +244,7 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
             animator.SetBool("Stunned", false);
             animator.SetBool("Death", true);
         }
+        isDead = true;
         stringAnimator.enabled = false;
     }
     [PunRPC]
