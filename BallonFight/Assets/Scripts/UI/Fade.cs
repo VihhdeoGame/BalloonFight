@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,6 +36,11 @@ public class Fade : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Application.Quit();
     }
+    IEnumerator WaitforDisconnect()
+    {
+        yield return new WaitForSeconds(0.5f);
+        PhotonNetwork.Disconnect();
+    }
     public void FadeInAndLoadScene(string _scene)
     {
         FadeIn();
@@ -49,5 +55,10 @@ public class Fade : MonoBehaviour
     {
         FadeIn();
         StartCoroutine(WaitforQuit());
+    }
+    public void FadeInAndDisconnect()
+    {
+        FadeIn();
+        StartCoroutine(WaitforDisconnect());
     }
 }

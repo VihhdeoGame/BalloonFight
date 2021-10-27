@@ -26,7 +26,7 @@ SpriteAtlas:
       m_MaxTextureSize: 2048
       m_ResizeAlgorithm: 0
       m_TextureFormat: -1
-      m_TextureCompression: 2
+      m_TextureCompression: 0
       m_CompressionQuality: 50
       m_CrunchedCompression: 1
       m_AllowsAlphaSplitting: 0
@@ -43,12 +43,13 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 41514f37c4086fc4cadcb23e38532369, type: 3}
-    totalSpriteSurfaceArea: 2671390
+    totalSpriteSurfaceArea: 2672414
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 4414d720392b16b488e92b1c26701eef, type: 3}
   - {fileID: 21300000, guid: f5879351bc40ea64ba80ab3f5f4763a0, type: 3}
+  - {fileID: 21300000, guid: 0edace818a42ba34189213ef3e281a30, type: 3}
   - {fileID: 21300000, guid: a976a8c1e1b8eb648b23f7de96969145, type: 3}
   - {fileID: 21300000, guid: b1a5b4f17f021c44da6e8b38cd818a3f, type: 3}
   - {fileID: -3459716946775152846, guid: 160297426e6df8c41aa0d52e6f7fece7, type: 3}
@@ -95,6 +96,7 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - String-Side-200_
   - Spike-2-200_
+  - String-Divider-200%
   - Fundo_BalloonFight
   - Balloon-200_
   - Eyes-200_Flip_1
