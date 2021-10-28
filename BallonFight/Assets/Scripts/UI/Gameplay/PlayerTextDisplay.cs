@@ -11,7 +11,10 @@ public class PlayerTextDisplay : MonoBehaviour
     void Awake() 
     {
         textBox = GetComponent<TextMesh>();
-        textBox.text = PhotonNetwork.CurrentRoom.Players[parent.playerNumber].NickName.ToString().Substring(0,3);
+        if(parent.playerNickName.Length > 3)
+            textBox.text = parent.playerNickName.Substring(0,3);
+        else
+            textBox.text = parent.playerNickName;
     }
     
 }

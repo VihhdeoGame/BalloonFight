@@ -14,14 +14,14 @@ public class PlayerLifeDisplay : MonoBehaviourPunCallbacks
     {
         players = FindObjectsOfType<PlayerGeneralManager>();
         lifeArray = new List<GameObject>();
-        DisplayHearts(players[PhotonNetwork.LocalPlayer.ActorNumber-1].currentLives);
+        DisplayHearts(players[(PhotonNetwork.LocalPlayer.ActorNumber-1)%4].currentLives);
     }
     void DisplayHearts(int maxLives)
     {
         for (int i = 0; i < maxLives; i++)
         {
             lifeArray.Add(Instantiate(lifePrefab,transform));
-            lifeArray[i].GetComponent<Image>().color = GameManager.PlayerManager.playerColors[PhotonNetwork.LocalPlayer.ActorNumber-1];
+            lifeArray[i].GetComponent<Image>().color = GameManager.PlayerManager.playerColors[(PhotonNetwork.LocalPlayer.ActorNumber-1)%4];
         }
         currentLives = maxLives;
     }

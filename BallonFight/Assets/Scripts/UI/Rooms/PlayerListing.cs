@@ -15,6 +15,6 @@ public class PlayerListing : MonoBehaviour
     {
         Player = _player;
         text.text = _player.NickName;
-        text.color = GameManager.PlayerManager.playerColors[_player.ActorNumber-1];
+        text.color = GameManager.PlayerManager.playerColors[(_player.ActorNumber-1)%4];
     }
 }

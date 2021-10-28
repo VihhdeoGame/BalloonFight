@@ -23,6 +23,6 @@ public class InstantiatePlayers : MonoBehaviour
     }
     private void Awake() 
     {
-        GameManager.NetworkInstantiante(prefab, spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.position, Quaternion.identity);        
+        GameManager.NetworkInstantiante(prefab, spawnPoints[(PhotonNetwork.LocalPlayer.ActorNumber-1)%4].transform.position, Quaternion.identity);        
     }
 }

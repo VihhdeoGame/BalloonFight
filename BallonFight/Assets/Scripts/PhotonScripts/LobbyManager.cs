@@ -7,6 +7,8 @@ using UnityEngine;
 //Class responsible for major callbacks inLobby, every room update gets stored in the dict cachedRoomList
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField]
+    StartGameMenu startGameMenu;
     private Dictionary<string, RoomInfo> cachedRoomList = new Dictionary<string, RoomInfo>();
     public Dictionary<string, RoomInfo> CachedRoomList {get {return cachedRoomList; } }
     private RoomCanvases roomCanvases;
@@ -50,6 +52,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         ConnectMaster();        
+    }
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        startGameMenu.StopAllCoroutines();
+        startGameMenu.isMaster();
     }
     private void ConnectMaster()
     {

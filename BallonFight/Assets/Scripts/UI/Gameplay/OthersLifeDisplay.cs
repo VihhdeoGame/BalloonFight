@@ -14,7 +14,7 @@ public class OthersLifeDisplay : MonoBehaviour
         players = FindObjectsOfType<PlayerGeneralManager>();
         for (int i = 0; i < players.Length; i++)
         {
-            if(players[i].playerNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+            if(players[i].playerNumber != ((PhotonNetwork.LocalPlayer.ActorNumber-1)%4)+1)
             {
                 OtherLifeDisplay _other = Instantiate(prefab,transform);
                 othersLives.Add(players[i].playerNumber, _other);

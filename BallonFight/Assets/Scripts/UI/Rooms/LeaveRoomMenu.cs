@@ -6,6 +6,8 @@ using UnityEngine;
 //Class responsible to exit rooms
 public class LeaveRoomMenu : MonoBehaviourPunCallbacks
 {
+    [SerializeField]
+    GameObject startButton,countdownTimer;
     private RoomCanvases roomCanvases;
     public void FirstInitialize(RoomCanvases _canvases)
     {
@@ -13,8 +15,11 @@ public class LeaveRoomMenu : MonoBehaviourPunCallbacks
     }
     public void OnClick_LeaveRoom()
     {
-       PhotonNetwork.LeaveRoom(true);
-       roomCanvases.CurrentRoomCanvas.Hide();
-       roomCanvases.BackgroundCanvas.Show();
+        StopAllCoroutines();
+        PhotonNetwork.LeaveRoom(true);
+        startButton.SetActive(true);
+        countdownTimer.SetActive(false);
+        roomCanvases.CurrentRoomCanvas.Hide();
+        roomCanvases.BackgroundCanvas.Show();
     }
 }

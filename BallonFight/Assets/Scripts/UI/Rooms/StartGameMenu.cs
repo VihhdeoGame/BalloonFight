@@ -7,7 +7,7 @@ using TMPro;
 //Class used to close a room and start the game
 public class StartGameMenu : MonoBehaviourPunCallbacks
 {
-    [SerializeField]GameObject countdown;
+    [SerializeField]GameObject countdown,startButton;
     [SerializeField] TMP_Text countdownDisplay;
     [SerializeField] int countdownTime;
     PhotonView view;
@@ -16,34 +16,37 @@ public class StartGameMenu : MonoBehaviourPunCallbacks
         view = GetComponent<PhotonView>();
         base.OnEnable();
         isMaster();
-        #if UNITY_EDITOR
-        countdownTime = 2;
-        #endif
     }
-    private void isMaster(){ gameObject.SetActive(PhotonNetwork.IsMasterClient); }
+    public void isMaster(){ startButton.SetActive(PhotonNetwork.IsMasterClient); }
     public void OnClick_StarGame()
     {
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.CurrentRoom.IsVisible = false;
-        gameObject.SetActive(false);
-        view.RPC("RPC_CountdownToStart",RpcTarget.All);
+        view.RPC("RPC_CountdownToStart",RpcTarget.Others);
+        StartCoroutine(CountdownToStart());
+        startButton.SetActive(false);
     }
 
     [PunRPC]
-    IEnumerator RPC_CountdownToStart()
+    void RPC_CountdownToStart()
     {
+        StartCoroutine(CountdownToStart());
+    }
+    IEnumerator CountdownToStart()
+    {
+        int _countdownTime = countdownTime;
         countdown.SetActive(true);
-        while(countdownTime > 0)
+        while(_countdownTime > 0)
         {
 
-            countdownDisplay.text = string.Concat("The game will start in: ",countdownTime.ToString());
-            Debug.Log(countdownTime.ToString());
+            countdownDisplay.text = string.Concat("The game will start in: ",_countdownTime.ToString());
+            Debug.Log(_countdownTime.ToString());
 
             yield return new WaitForSeconds(1f);
 
-            countdownTime--;
+            _countdownTime--;
         }
-        if(PhotonNetwork.IsMasterClient)
+        if(PhotonNetwork.IsMasterClient && _countdownTime == 0)
             PhotonNetwork.LoadLevel("Gameplay");    
     }
 

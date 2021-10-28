@@ -11,7 +11,8 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
     [SerializeField] Animator stringAnimator;
     [SerializeField]Transform weapons;
     public Rigidbody2D body;
-    public Color color;    
+    public Color color; 
+    public string playerNickName;   
     public int playerNumber;
     public int currentLives;
     public bool isDead = false;
@@ -50,7 +51,19 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         body = GetComponent<Rigidbody2D>();
         joystick = FindObjectOfType<Joystick>();
         spawnPoint = transform.position;
-        playerNumber = view.ControllerActorNr;
+        playerNumber = ((view.ControllerActorNr-1)%4)+1;
+        int _realPlayerNumber = playerNumber;
+        while(playerNickName.Equals("") && _realPlayerNumber < 500)
+        {
+            if(PhotonNetwork.CurrentRoom.Players.ContainsKey(_realPlayerNumber))
+            {
+                playerNickName = PhotonNetwork.CurrentRoom.Players[_realPlayerNumber].NickName;
+            }
+            else
+                _realPlayerNumber += 4;
+        }
+        if(playerNickName.Equals(""))
+            playerNickName = string.Concat("P",playerNumber.ToString());
         color = GameManager.PlayerManager.SetColor(playerNumber);
         sprite.color = color;
         scoreManager = FindObjectOfType<ScoreManager>();

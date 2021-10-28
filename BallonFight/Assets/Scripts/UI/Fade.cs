@@ -34,7 +34,11 @@ public class Fade : MonoBehaviour
     IEnumerator WaitforQuit()
     {
         yield return new WaitForSeconds(0.5f);
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
     IEnumerator WaitforDisconnect()
     {
