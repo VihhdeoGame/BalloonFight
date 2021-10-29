@@ -35,8 +35,6 @@ public class JoinRoomMenu : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         roomName.text = "";
-        Debug.Log("Joined room successfully");
-        Debug.Log(string.Concat("Room Name: ",PhotonNetwork.CurrentRoom.Name));
         roomCanvases.CurrentRoomCanvas.Show();
         roomCanvases.CreateOrJoinRoomCanvas.Hide();
     }

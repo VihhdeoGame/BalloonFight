@@ -39,15 +39,12 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 
     public override void OnCreatedRoom()
     {
-        Debug.Log("Created room successfully", this);
-        Debug.Log(string.Concat("Room Name ",PhotonNetwork.CurrentRoom.Name));
         roomCanvases.CurrentRoomCanvas.Show();
         roomCanvases.CreateOrJoinRoomCanvas.Hide();
         roomCanvases.BackgroundCanvas.Hide();
     }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        Debug.Log(string.Concat("Room creation failed: ",message), this);
         roomCanvases.BackgroundCanvas.Hide();
     }
     private string CreateRandomName(int length)

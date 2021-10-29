@@ -32,8 +32,8 @@ public class RotateWeapons : MonoBehaviour
 #elif UNITY_STANDALONE || UNITY_EDITOR
         if(view.IsMine && !parent.stuned)
         {
-            if(Input.GetKey(KeyCode.E)){ Rotate(true);}        
-            if(Input.GetKey(KeyCode.Q)){ Rotate(false);}
+            if(Input.GetButton("RightButton")){ Rotate(true);}        
+            if(Input.GetButton("LeftButton")){ Rotate(false);}
         }
 #endif
     }

@@ -32,7 +32,6 @@ public class GameManager : SingletonScriptableObject<GameManager>
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void FirstInitialize()
     {
-        Debug.Log("This message will output before Awake.");
     }
     public static TypedLobby Lobby
     {

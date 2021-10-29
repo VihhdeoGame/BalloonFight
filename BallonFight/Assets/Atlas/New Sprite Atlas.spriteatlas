@@ -43,7 +43,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 41514f37c4086fc4cadcb23e38532369, type: 3}
-    totalSpriteSurfaceArea: 2672414
+    totalSpriteSurfaceArea: 1096830
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -63,12 +63,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 033639e3c84051e45b69081e3ff2618e, type: 3}
   - {fileID: 3926147537253990275, guid: fa55a804d3fab8148b86861e3635d47b, type: 3}
   - {fileID: 21300000, guid: 673d7074433325645bcd5be6052ebb70, type: 3}
-  - {fileID: 21300000, guid: 0c9c53840b1000f45b6766a73cd524d8, type: 3}
   - {fileID: 21300000, guid: bfbd0a1568d3c444d9fb62b2819120b2, type: 3}
   - {fileID: -2300220442654487690, guid: 17cdab352dd2ff947bea13497387f045, type: 3}
   - {fileID: 21300000, guid: 66fbb15552b00154ca5de17bf0f8c68a, type: 3}
   - {fileID: 21300000, guid: d1821dc5abb071e46ab074e23e54e504, type: 3}
-  - {fileID: 21300000, guid: ff970fd5788d98a4088aad7d1f101175, type: 3}
   - {fileID: 21300000, guid: 4de148c691b909e4fbb045d8dd52279a, type: 3}
   - {fileID: 5720879695553172039, guid: 6266b5179d79f5748b0c4a8f0cb86c6f, type: 3}
   - {fileID: -4855583877375156798, guid: 6266b5179d79f5748b0c4a8f0cb86c6f, type: 3}
@@ -86,7 +84,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7d17512a15013c44c89d2357f5a7388e, type: 3}
   - {fileID: 21300000, guid: 068fd15a644555d4eab44a58f6222f33, type: 3}
   - {fileID: 21300000, guid: 477db4ead626d6440b2a9a844722f2d3, type: 3}
-  - {fileID: 21300000, guid: 5f03460b98a1f3441b4d69b65d20b0c8, type: 3}
   - {fileID: 21300000, guid: b9edf88cb8f3012499d73510c5dbd7fd, type: 3}
   - {fileID: 21300000, guid: 31eddf6d48fc3a642a9f9c785c9a1131, type: 3}
   - {fileID: 21300000, guid: 103bfdad2b73f3c46ade5c43b09ba9a1, type: 3}
@@ -110,12 +107,10 @@ SpriteAtlas:
   - Button-Square-200_
   - String-2-200__0
   - heart2_shine
-  - Heart
   - Cloud-1-200_
   - String-Side-200__0
   - heart2
   - Floor-Right-Side-16x16-200_
-  - heart
   - Spike-1-200_
   - Eyes-200__2
   - Eyes-200__3
@@ -133,7 +128,6 @@ SpriteAtlas:
   - Cloud-3-200_
   - Box-200%
   - Icone_BalloonFight
-  - Player_Arrrow
   - Cloud-4-200_
   - Reflex-Box-200%
   - Arrow

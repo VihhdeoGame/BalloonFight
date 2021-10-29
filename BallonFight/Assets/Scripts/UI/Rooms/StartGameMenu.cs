@@ -17,7 +17,7 @@ public class StartGameMenu : MonoBehaviourPunCallbacks
         base.OnEnable();
         isMaster();
     }
-    public void isMaster(){ startButton.SetActive(PhotonNetwork.IsMasterClient); }
+    public void isMaster(){ startButton.SetActive(PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount>1); }
     public void OnClick_StarGame()
     {
         PhotonNetwork.CurrentRoom.IsOpen = false;
@@ -40,7 +40,6 @@ public class StartGameMenu : MonoBehaviourPunCallbacks
         {
 
             countdownDisplay.text = string.Concat("The game will start in: ",_countdownTime.ToString());
-            Debug.Log(_countdownTime.ToString());
 
             yield return new WaitForSeconds(1f);
 

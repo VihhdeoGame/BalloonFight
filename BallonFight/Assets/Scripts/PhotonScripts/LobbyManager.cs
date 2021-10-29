@@ -24,13 +24,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public override void OnConnectedToMaster()
     {
-        Debug.Log("Connecting to Lobby...");
         PhotonNetwork.JoinLobby(GameManager.Lobby);    
     }
     public override void OnDisconnected(DisconnectCause cause)
     {
         cachedRoomList.Clear();
-        Debug.Log(string.Concat("Disconect from server", cause.ToString()));
         GameManager.SceneManager.LoadScene("Main Menu");
     }
     public override void OnJoinedLobby()
@@ -58,11 +56,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         startGameMenu.StopAllCoroutines();
         startGameMenu.isMaster();
     }
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        startGameMenu.isMaster();
+    }
     private void ConnectMaster()
     {
         if(!PhotonNetwork.IsConnected)
         {
-            Debug.Log("Connecting to Server...");
             PhotonNetwork.SendRate = 30;
             PhotonNetwork.SerializationRate = 10;
             PhotonNetwork.AutomaticallySyncScene = true;

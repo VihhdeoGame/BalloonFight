@@ -87,24 +87,20 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         {
             blinkFrames += 1;
             sprite.color = new Color(sprite.color.r,sprite.color.g,sprite.color.b,0);
-            Debug.Log($"Sprite Color is isNotBlinking {sprite.color.a}");
             if(blinkFrames >= 0){blinkFrames = 10;}
         }
         else if(respawnCooldown && isBlinking && blinkFrames > 0)
         {
             blinkFrames -= 1;
             sprite.color = new Color(sprite.color.r,sprite.color.g,sprite.color.b,1);
-            Debug.Log($"Sprite Color is isBlinking {sprite.color.a}"); 
             if(blinkFrames <= 0){blinkFrames = -10;}
         }
         else if(!respawnCooldown && isBlinking)
         {
             sprite.color = new Color(sprite.color.r,sprite.color.g,sprite.color.b,1f);
-            Debug.Log($"Sprite Color NotRespawn {sprite.color.a}");
             isBlinking = false;
             blinkFrames = -10;
         }
-        Debug.Log($"Sprite Color FinishUpdate {sprite.color.a}");
         if(scoreManager.ScoresReceived.Count == PhotonNetwork.CurrentRoom.PlayerCount - 1 && isReady && display != null)
             {
                 GetVictoryScreen();
@@ -198,7 +194,6 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         object[] datas = new object[] {playerNumber};
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient };
         PhotonNetwork.RaiseEvent(Const.SEND_SCORE_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
-        Debug.Log("sending from kill");
         view.RPC("RPC_SetReady", RpcTarget.All,false);
         SetRender(false);
     }
@@ -207,21 +202,27 @@ public class PlayerGeneralManager : MonoBehaviour,IOnEventCallback
         object[] datas = new object[] {playerNumber};
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient };
         PhotonNetwork.RaiseEvent(Const.SEND_SCORE_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
-        Debug.Log("sending from victory");
         view.RPC("RPC_SetReady", RpcTarget.All,false);
         SetRender(false);
     }
     public void ResetValues()
     {
+        StopAllCoroutines();
         SetRender(true);
         view.RPC("RPC_SetReady", RpcTarget.All,true);
         transform.position = spawnPoint;
         body.velocity = Vector2.zero;
         body.angularVelocity = 0;
+        weapons.rotation = Quaternion.identity;
         currentLives = GameManager.PlayerManager.playerMaxLives;
         if(view.IsMine)
+        {
             animator.SetBool("Death", false);
+            animator.SetBool("Stunned", false);
+        }
+        respawnCooldown = false;
         isDead = false;
+        stuned = false;
         UpdateHearts();
     }    
     private void UpdateHearts()

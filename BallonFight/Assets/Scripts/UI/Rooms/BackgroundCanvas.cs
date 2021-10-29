@@ -14,7 +14,6 @@ public class BackgroundCanvas : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedLobby()
     {
-        Debug.Log("Success, Entering lobby");
         roomCanvases.CreateOrJoinRoomCanvas.Show();
         roomCanvases.BackgroundCanvas.Hide();
     }

@@ -6,15 +6,14 @@ using UnityEngine;
 public class MusicPlayer : MonoBehaviour
 {
     AudioSource musicPlayer;
-    [SerializeField]
-    string musicName;
+    public string musicName;
     void Start()
     {
         musicPlayer = GetComponent<AudioSource>();
         PlayMusic(musicName);
         ChangeVolume();
     }
-    void PlayMusic(string musicName)
+    public void PlayMusic(string musicName)
     {
         for (int i = 0; i <  GameManager.MusicManager.musics.Length; i++)
         {
@@ -29,5 +28,11 @@ public class MusicPlayer : MonoBehaviour
     void ChangeVolume()
     {
         musicPlayer.volume = GameManager.MusicManager.volume/100;
+    }
+    public void ChangeMusic(string _music)
+    {
+        musicPlayer.Stop();
+        PlayMusic(_music);
+        musicName = _music;
     }
 }

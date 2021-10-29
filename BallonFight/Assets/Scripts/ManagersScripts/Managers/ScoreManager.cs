@@ -108,17 +108,17 @@ public class ScoreManager : MonoBehaviourPunCallbacks,IOnEventCallback
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        if(PhotonNetwork.IsMasterClient && arePlayersReady.ContainsKey(otherPlayer.ActorNumber))
-            arePlayersReady.Remove(otherPlayer.ActorNumber);
+        buttonLeaveRoom.SetActive(true);
+        buttonIsReady.SetActive(true);
+        if(PhotonNetwork.IsMasterClient && arePlayersReady.ContainsKey(otherPlayer.ActorNumber))    
+            arePlayersReady.Clear();
     }
     public void OnEvent(EventData photonEvent)
     {
-        Debug.Log(string.Concat("Event Recived: ",photonEvent.Code.ToString()));
         if(photonEvent.Code == Const.SEND_SCORE_EVENT)
         {
             object[] datas = (object[])photonEvent.CustomData;
             int _score = (int)datas[0];
-            Debug.Log(string.Concat("Recebeu player: ",_score.ToString()));
             scoresReceived.Enqueue(_score);
         }
         if(photonEvent.Code == Const.SEND_LEADERBOARD_EVENT)

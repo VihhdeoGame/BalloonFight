@@ -121,6 +121,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &88648938 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3145533393501954264, guid: 0e340320ce83a3b48b537df2f6bbb05a,
+    type: 3}
+  m_PrefabInstance: {fileID: 408157065}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53253c8b517d3fb4fb60b06dd53edf73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &101241416 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4343752178300579975, guid: 17f4e7e8691232b4e9f14da6f4a25b11,
@@ -545,7 +557,7 @@ PrefabInstance:
     - target: {fileID: 3145533393501954264, guid: 0e340320ce83a3b48b537df2f6bbb05a,
         type: 3}
       propertyPath: musicName
-      value: Charge
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e340320ce83a3b48b537df2f6bbb05a, type: 3}
@@ -1663,6 +1675,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 299110829}
     m_Modifications:
+    - target: {fileID: 3415605104071677722, guid: 8709c7550647f0e47a9d3b43d8b685ca,
+        type: 3}
+      propertyPath: music
+      value: 
+      objectReference: {fileID: 88648938}
     - target: {fileID: 3561819399291691291, guid: 8709c7550647f0e47a9d3b43d8b685ca,
         type: 3}
       propertyPath: m_Name

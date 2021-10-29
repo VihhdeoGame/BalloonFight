@@ -3,15 +3,31 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Fade : MonoBehaviour
 {
+    [SerializeField]
+    MusicPlayer music;
     Image image;
     private void Awake() 
     {
-        
         image = GetComponent<Image>();
         FadeOut();
+    }
+    private void Update() 
+    {
+        if(music == null)
+        {
+            music = FindObjectOfType<MusicPlayer>();
+        }
+        else
+        {
+            if(!music.musicName.Equals(SceneManager.GetActiveScene().name))
+            {
+                music.ChangeMusic(SceneManager.GetActiveScene().name);
+            }
+        }
     }
     public void FadeOut()
     {
