@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Music
+  - DeathScreen
+  - Sword
+  - Shield
+  - SceneManager
+  - Weapons
+  - Right Button
+  - Left Button
+  - PlayerSpawner
   layers:
   - Default
   - TransparentFX
@@ -13,9 +22,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Weapon
+  - Player
+  - Scenery
   - 
   - 
   - 
@@ -38,6 +47,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 4051312641
+    locked: 0
+  - name: Players
+    uniqueID: 1465519687
+    locked: 0
+  - name: Foreground
+    uniqueID: 914196393
+    locked: 0
+  - name: UI
+    uniqueID: 4046025937
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
